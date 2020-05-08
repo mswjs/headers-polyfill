@@ -9,7 +9,8 @@
   "scripts": {
     "clean": "rimraf lib",
     "build": "yarn clean && tsc --build",
-    "test": "jest"
+    "test": "jest",
+    "prepublishOnly": "yarn test && yarn build"
   },
   "files": [
     "lib",
