@@ -7,7 +7,7 @@ Utilities for working with a `Headers` instance.
 
 ## Motivation
 
-Various request issuing libraries expect a different format of headers. This library chooses the [`Headers`](https://developer.mozilla.org/en-US/docs/Web/API/Headers) instance as the middle-ground between server and client, and provides transformer functions to convert that instance to primitives, or vice-versa.
+Various request issuing libraries utilize a different format of headers. This library chooses the [`Headers`](https://developer.mozilla.org/en-US/docs/Web/API/Headers) instance as the middle-ground between server and client, and provides functions to convert that instance to primitives and vice-versa.
 
 ## Getting started
 
@@ -15,18 +15,93 @@ Various request issuing libraries expect a different format of headers. This lib
 $ npm install headers-utils
 ```
 
-## API
+## Headers ⭢ N
 
-### Conversion
+#### `headersToString: (h: Headers): string`
 
-- `headersToString: (h: Headers): string`
-- `headersToList: (h: Headers): Array<[string, string | string[]]>`
-- `headersToObject: (h: Headers): Record<string, string | string[]>`
-- `stringToHeaders: (s: string): Headers`
-- `listToHeaders: (l: Array<[string, string | string[]]>): Headers`
-- `objectToHeaders: (o: Record<string, string | string[]>): Headers`
+```js
+headersToString(
+  new Headers({
+    connection: 'keep-alive',
+    'content-type': ['text/plain', 'image/png'],
+  })
+)
+// connetion: keep-alive
+// content-type: text/plain, image/png
+```
 
-### Transformation
+#### `headersToList: (h: Headers): Array<[string, string | string[]]>`
 
-- `flattenHeadersList: (l: Array<[string, string | string[]]>): Array<string, string>`
-- `flattenHeadersObject: (o: Record<string, string | string[]>): Record<string, string>`
+```js
+headersToList(
+  new Headers({
+    connection: 'keep-alive',
+    'content-type': ['text/plain', 'image/png'],
+  })
+)
+// [['connection', 'keep-alive'], ['content-type', ['text/plain', 'image/png']]]
+```
+
+#### `headersToObject: (h: Headers): Record<string, string | string[]>`
+
+```js
+headersToObject(
+  new Headers({
+    connection: 'keep-alive',
+    'content-type': ['text/plain', 'image/png'],
+  })
+)
+// { connection: 'keep-alive', 'content-type': ['text/plain', 'image/png'] }
+```
+
+## N ⭢ Headers
+
+#### `stringToHeaders: (s: string): Headers`
+
+```js
+const stringToHeaders(`
+connection: keep-alive
+content-type: text/plain, image/png
+`)
+// Headers { connection: 'keep-alive', 'content-type': ['text/plain', 'image/png'] }
+```
+
+#### `listToHeaders: (l: Array<[string, string | string[]]>): Headers`
+
+```js
+listToHeaders([
+  ['connection', 'keep-alive'],
+  ['content-type', ['text/plain', 'image/png']],
+])
+// Headers { connection: 'keep-alive', 'content-type': ['text/plain', 'image/png'] }
+```
+
+#### `objectToHeaders: (o: Record<string, string | string[]>): Headers`
+
+```js
+objectToHeaders({
+  connection: 'keep-alive',
+  'content-type': ['text/plain', 'image/png'],
+})
+// Headers { connection: 'keep-alive', 'content-type': ['text/plain', 'image/png'] }
+```
+
+---
+
+## Utilities
+
+#### `flattenHeadersList: (l: Array<[string, string | string[]]>): Array<string, string>`
+
+```js
+flattenHeadersList([['content-type', ['text/plain', 'image/png']]])
+// ['content-type', 'text/plain; image/png']
+```
+
+#### `flattenHeadersObject: (o: Record<string, string | string[]>): Record<string, string>`
+
+```js
+flattenHeadersObject({
+  'content-type': ['text/plain', 'image/png'],
+})
+// { 'content-type': 'text/plain; image/png' }
+```
