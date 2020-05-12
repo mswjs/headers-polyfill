@@ -37,4 +37,18 @@ describe('headersToObject', () => {
       })
     })
   })
+
+  describe('given Headers with a single header that includes a semicolon', () => {
+    it('should preserve a single header', () => {
+      const headers = new Headers({
+        'user-agent':
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.0 Safari/537.36',
+      })
+
+      expect(headersToObject(headers)).toEqual({
+        'user-agent':
+          'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.0 Safari/537.36',
+      })
+    })
+  })
 })
