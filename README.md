@@ -19,6 +19,7 @@ $ npm install headers-utils
 
 ### Conversion
 
+- `headersToString: (h: Headers): string`
 - `headersToList: (h: Headers): Array<[string, string | string[]]>`
 - `headersToObject: (h: Headers): Record<string, string | string[]>`
 - `stringToHeaders: (s: string): Headers`
