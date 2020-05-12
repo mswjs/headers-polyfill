@@ -1,4 +1,4 @@
-[![Published version](https://img.shields.io/npm/v/headers-utils.svg)](https://www.npmjs.com/package/headers-util)
+[![Published version](https://img.shields.io/npm/v/headers-utils.svg)](https://www.npmjs.com/package/headers-utils)
 [![Build status](https://img.shields.io/circleci/project/github/mswjs/headers-utils/master.svg)](https://npmjs.com/package/headers-utils)
 
 # `headers-utils`
@@ -21,6 +21,7 @@ $ npm install headers-utils
 
 - `headersToList: (h: Headers): Array<[string, string | string[]]>`
 - `headersToObject: (h: Headers): Record<string, string | string[]>`
+- `stringToHeaders: (s: string): Headers`
 - `listToHeaders: (l: Array<[string, string | string[]]>): Headers`
 - `objectToHeaders: (o: Record<string, string | string[]>): Headers`
 
