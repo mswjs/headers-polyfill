@@ -6,3 +6,6 @@ export { objectToHeaders } from './objectToHeaders'
 
 export { flattenHeadersList } from './flattenHeadersList'
 export { flattenHeadersObject } from './flattenHeadersObject'
+
+/* Typings */
+export { HeadersList, HeadersObject } from './glossary'
