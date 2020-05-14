@@ -4,7 +4,11 @@ export class Headers {
   private map: Record<string, string> = {}
 
   constructor(headers?: any) {
-    if (Array.isArray(headers)) {
+    if (headers?.constructor.name === 'Headers') {
+      headers.forEach((value: string, name: string) => {
+        this.append(name, value)
+      }, this)
+    } else if (Array.isArray(headers)) {
       headers.forEach(([name, value]) => {
         this.append(name, Array.isArray(value) ? value.join(', ') : value)
       })
@@ -43,7 +47,7 @@ export class Headers {
    * Returns a `ByteString` sequence of all the values of a header with a given name.
    */
   get(name: string): string | null {
-    return this.map[name]
+    return this.map[this.normalizeName(name)]
   }
 
   /**
