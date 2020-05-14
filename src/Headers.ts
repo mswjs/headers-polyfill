@@ -42,7 +42,7 @@ export class Headers {
   /**
    * Returns a `ByteString` sequence of all the values of a header with a given name.
    */
-  get(name: string): string | string[] {
+  get(name: string): string | null {
     return this.map[name]
   }
 
