@@ -8,4 +8,9 @@ export { flattenHeadersList } from './flattenHeadersList'
 export { flattenHeadersObject } from './flattenHeadersObject'
 
 /* Typings */
-export { HeadersList, HeadersObject } from './glossary'
+export {
+  HeadersList,
+  FlatHeadersList,
+  HeadersObject,
+  FlatHeadersObject,
+} from './glossary'

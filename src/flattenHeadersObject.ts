@@ -1,6 +1,4 @@
-import { HeadersObject } from './glossary'
-
-type FlatHeadersObject = Record<string, string>
+import { HeadersObject, FlatHeadersObject } from './glossary'
 
 export function flattenHeadersObject(obj: HeadersObject): FlatHeadersObject {
   return Object.keys(obj).reduce<FlatHeadersObject>((acc, name) => {
