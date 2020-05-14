@@ -1,3 +1,5 @@
+export { Headers } from './Headers'
+
 export { headersToList } from './headersToList'
 export { headersToObject } from './headersToObject'
 export { stringToHeaders } from './stringToHeaders'
