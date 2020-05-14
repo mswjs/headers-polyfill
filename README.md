@@ -90,6 +90,17 @@ objectToHeaders({
 
 ## Utilities
 
+#### `appendHeader: (h: Record<string, string | string[]>, n: string, v: string | string[]): Record<string, string | string[]>`
+
+```js
+appendHeader(
+  { 'content-type': 'application/json' },
+  'content-type',
+  'text/plain'
+)
+// { 'content-type': ['application/json', 'text/plain']}
+```
+
 #### `flattenHeadersList: (l: Array<[string, string | string[]]>): Array<string, string>`
 
 ```js
