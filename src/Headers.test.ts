@@ -49,9 +49,9 @@ describe('Headers', () => {
     })
 
     describe('given getting a non-existing header', () => {
-      it('should return undefined', () => {
+      it('should return explicit null', () => {
         const h = new Headers({ accept: '*/*' })
-        expect(h.get('content-type')).toBeUndefined()
+        expect(h.get('content-type')).toBeNull()
       })
     })
   })
@@ -149,7 +149,7 @@ describe('Headers', () => {
       it('should delete the header', () => {
         const h = new Headers({ accept: '*/*' })
         h.delete('accept')
-        expect(h.get('accept')).toBeUndefined()
+        expect(h.get('accept')).toBeNull()
       })
     })
 
