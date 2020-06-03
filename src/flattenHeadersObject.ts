@@ -1,8 +1,13 @@
 import { HeadersObject, FlatHeadersObject } from './glossary'
+import { reduceHeadersObject } from './reduceHeadersObject'
 
 export function flattenHeadersObject(obj: HeadersObject): FlatHeadersObject {
-  return Object.keys(obj).reduce<FlatHeadersObject>((acc, name) => {
-    acc[name] = ([] as string[]).concat(obj[name]).join('; ')
-    return acc
-  }, {})
+  return reduceHeadersObject<FlatHeadersObject>(
+    obj,
+    (headers, name, value) => {
+      headers[name] = ([] as string[]).concat(value).join('; ')
+      return headers
+    },
+    {}
+  )
 }

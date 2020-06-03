@@ -1,6 +1,6 @@
 /**
  * Converts a string representation of headers (i.e. from XMLHttpRequest)
- * to a `Headers` instance.
+ * to a new `Headers` instance.
  */
 export function stringToHeaders(str: string): Headers {
   const lines = str.trim().split(/[\r\n]+/)
