@@ -90,7 +90,24 @@ objectToHeaders({
 
 ## Utilities
 
-#### `appendHeader: (h: Record<string, string | string[]>, n: string, v: string | string[]): Record<string, string | string[]>`
+#### `reduceHeadersObject: <R>(o: Record<string, string | string[]>, reducer: (acc: R, name: string, value: string | string[]) => R) => R`
+
+```js
+reduceHeadersObject <
+  HeadersObject >
+  ({
+    Accept: '*/*',
+    'Content-Type': ['application/json', 'text/plain'],
+  },
+  (headers, name, value) => {
+    headers[name.toLowerCase()] = value
+    return headers
+  },
+  {})
+// { 'accept': '*/*', 'content-type': ['application/json', 'text/plain'] }
+```
+
+#### `appendHeader: (o: Record<string, string | string[]>, n: string, v: string | string[]): Record<string, string | string[]>`
 
 ```js
 appendHeader(
