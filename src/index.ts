@@ -6,6 +6,7 @@ export { stringToHeaders } from './stringToHeaders'
 export { listToHeaders } from './listToHeaders'
 export { objectToHeaders } from './objectToHeaders'
 
+export { reduceHeadersObject } from './reduceHeadersObject'
 export { flattenHeadersList } from './flattenHeadersList'
 export { flattenHeadersObject } from './flattenHeadersObject'
 
