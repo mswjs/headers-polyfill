@@ -1,7 +1,7 @@
 {
   "name": "headers-utils",
   "version": "1.2.0",
-  "description": "Utilities for working with a Headers instance",
+  "description": "Utilities for creating and transforming a Headers instance",
   "main": "lib/index.js",
   "types": "lib",
   "repository": "https://github.com/mswjs/headers-utils",
