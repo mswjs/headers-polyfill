@@ -3,7 +3,7 @@
 
 # `headers-utils`
 
-Utilities for working with a `Headers` instance.
+Utilities for creating and transforming a `Headers` instance.
 
 ## Motivation
 
