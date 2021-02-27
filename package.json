@@ -1,6 +1,6 @@
 {
   "name": "headers-utils",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Utilities for creating and transforming a Headers instance",
   "main": "lib/index.js",
   "types": "lib",
