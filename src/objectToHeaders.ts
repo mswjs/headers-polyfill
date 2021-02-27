@@ -8,7 +8,7 @@ export function objectToHeaders(obj: HeadersObject): Headers {
   return reduceHeadersObject<Headers>(
     obj,
     (headers, name, value) => {
-      const values = ([] as string[]).concat(value)
+      const values = ([] as string[]).concat(value).filter(Boolean)
 
       values.forEach((value) => {
         headers.append(name, value)

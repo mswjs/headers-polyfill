@@ -8,6 +8,7 @@ describe('objectToHeaders', () => {
         Accept: ['application/json', 'text/plain'],
         'Content-Length': '1234',
         'Content-Type': 'text/xml',
+        'X-Custom-Header': undefined,
       }
       const headers = objectToHeaders(headersObject)
 
@@ -15,6 +16,7 @@ describe('objectToHeaders', () => {
       expect(headers.get('accept')).toEqual('application/json, text/plain')
       expect(headers.get('content-length')).toEqual('1234')
       expect(headers.get('content-type')).toEqual('text/xml')
+      expect(headers.get('x-custom-header')).toBeNull()
     })
   })
 })

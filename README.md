@@ -76,7 +76,7 @@ listToHeaders([
 // Headers { connection: 'keep-alive', 'content-type': ['text/plain', 'image/png'] }
 ```
 
-#### `objectToHeaders: (o: Record<string, string | string[]>): Headers`
+#### `objectToHeaders: (o: Record<string, string | string[] | undefined>): Headers`
 
 ```js
 objectToHeaders({
