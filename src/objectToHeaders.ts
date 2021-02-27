@@ -1,10 +1,11 @@
-import { HeadersObject } from './glossary'
 import { reduceHeadersObject } from './reduceHeadersObject'
 
 /**
  * Converts a given headers object to a new `Headers` instance.
  */
-export function objectToHeaders(obj: HeadersObject): Headers {
+export function objectToHeaders(
+  obj: Record<string, string | string[] | undefined>
+): Headers {
   return reduceHeadersObject<Headers>(
     obj,
     (headers, name, value) => {
