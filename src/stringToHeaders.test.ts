@@ -1,3 +1,4 @@
+import { Headers } from '.'
 import { stringToHeaders } from './stringToHeaders'
 
 describe('stringToHeaders', () => {

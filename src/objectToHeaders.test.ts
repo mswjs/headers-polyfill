@@ -1,3 +1,4 @@
+import { Headers } from '.'
 import { objectToHeaders } from './objectToHeaders'
 import { HeadersObject } from './glossary'
 

@@ -1,3 +1,4 @@
+import { Headers } from './Headers'
 import { reduceHeadersObject } from './reduceHeadersObject'
 
 /**
