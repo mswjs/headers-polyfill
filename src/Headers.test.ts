@@ -161,4 +161,31 @@ describe('Headers', () => {
       })
     })
   })
+
+  describe('.forEach()', () => {
+    describe('given the traversal of each header', () => {
+      it('should traverse each header once', () => {
+        const h = new Headers({ accept: '*/*', 'user-agent': 'agent' })
+        let headerSet = new Set()
+        h.forEach((value, name, headers) => {
+          expect(value).toBe(headers.get(name))
+          expect(headerSet.has(name)).toBe(false)
+          headerSet.add(name)
+        })
+        expect(headerSet).toEqual(new Set(['accept', 'user-agent']))
+      })
+    })
+    describe('given the traversal of each header with thisArg', () => {
+      it('should traverse each header once, with bind', () => {
+        const h = new Headers({ accept: '*/*', 'user-agent': 'agent' })
+        let headerSet = new Set()
+        h.forEach(function (value, name, headers) {
+          expect(value).toBe(headers.get(name))
+          expect(this.has(name)).toBe(false)
+          this.add(name)
+        }, headerSet)
+        expect(headerSet).toEqual(new Set(['accept', 'user-agent']))
+      })
+    })
+  })
 })
