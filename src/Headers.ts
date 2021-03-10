@@ -64,9 +64,13 @@ export class Headers {
     return this.map.hasOwnProperty(this.normalizeName(name))
   }
 
-  forEach(
-    callback: (name: string, value: string, thisArg: this) => void,
-    thisArg: this
+  /**
+   * Traverses the `Headers` object,
+   * calling the given callback for each header.
+   */
+  forEach<ThisArg = this>(
+    callback: (this: ThisArg, value: string, name: string, thisHeaders: this) => void,
+    thisArg?: ThisArg
   ) {
     for (let name in this.map) {
       if (this.map.hasOwnProperty(name)) {
