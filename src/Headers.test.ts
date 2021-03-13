@@ -4,37 +4,41 @@ describe('Headers', () => {
   describe('given I create a new Headers instance', () => {
     describe('without any arguments', () => {
       it('should return an empty object', () => {
-        const h = new Headers()
-        expect(h.getAllHeaders()).toEqual({})
+        const headers = new Headers()
+        expect(headers.getAllHeaders()).toEqual({})
       })
     })
 
     describe('with initial headers object', () => {
       it('should return that headers object', () => {
-        const h = new Headers({ accept: '*/*' })
-        expect(h.get('accept')).toEqual('*/*')
+        const headers = new Headers({ accept: '*/*' })
+        expect(headers.get('accept')).toEqual('*/*')
       })
     })
 
     describe('with initial headers list', () => {
       describe('with a single value', () => {
         it('should set that value', () => {
-          const h = new Headers([['accept', '*/*']])
-          expect(h.get('accept')).toEqual('*/*')
+          const headers = new Headers([['accept', '*/*']])
+          expect(headers.get('accept')).toEqual('*/*')
         })
       })
 
       describe('with multiple values represented as a list', () => {
         it('should join values', () => {
-          const h = new Headers([['accept', ['application/json', 'image/png']]])
-          expect(h.get('accept')).toEqual('application/json, image/png')
+          const headers = new Headers([
+            ['accept', ['application/json', 'image/png']],
+          ])
+          expect(headers.get('accept')).toEqual('application/json, image/png')
         })
       })
 
       describe('with multiple values represented as a string', () => {
         it('should preserve values as-is', () => {
-          const h = new Headers([['accept', 'application/json, image/png']])
-          expect(h.get('accept')).toEqual('application/json, image/png')
+          const headers = new Headers([
+            ['accept', 'application/json, image/png'],
+          ])
+          expect(headers.get('accept')).toEqual('application/json, image/png')
         })
       })
     })
@@ -43,15 +47,15 @@ describe('Headers', () => {
   describe('.get()', () => {
     describe('given getting an existing header', () => {
       it('should return that header value', () => {
-        const h = new Headers({ accept: '*/*' })
-        expect(h.get('accept')).toEqual('*/*')
+        const headers = new Headers({ accept: '*/*' })
+        expect(headers.get('accept')).toEqual('*/*')
       })
     })
 
     describe('given getting a non-existing header', () => {
       it('should return explicit null', () => {
-        const h = new Headers({ accept: '*/*' })
-        expect(h.get('content-type')).toBeNull()
+        const headers = new Headers({ accept: '*/*' })
+        expect(headers.get('content-type')).toBeNull()
       })
     })
   })
@@ -60,17 +64,17 @@ describe('Headers', () => {
     describe('given getting all the headers', () => {
       describe('and the headers are empty', () => {
         it('should return an empty object', () => {
-          const h = new Headers()
-          expect(h.getAllHeaders()).toEqual({})
+          const headers = new Headers()
+          expect(headers.getAllHeaders()).toEqual({})
         })
       })
 
       describe('and the headers are present', () => {
-        const h = new Headers({
+        const headers = new Headers({
           accept: '*/*',
           'content-type': ['application/json', 'text/plain'],
         })
-        expect(h.getAllHeaders()).toEqual({
+        expect(headers.getAllHeaders()).toEqual({
           accept: '*/*',
           'content-type': 'application/json,text/plain',
         })
@@ -80,48 +84,48 @@ describe('Headers', () => {
 
   describe('.set()', () => {
     describe('given setting a new header', () => {
-      const h = new Headers({ accept: '*/*' })
-      h.set('content-type', 'application/json')
+      const headers = new Headers({ accept: '*/*' })
+      headers.set('content-type', 'application/json')
 
       it('should preserve existing headers', () => {
-        expect(h.get('accept')).toEqual('*/*')
+        expect(headers.get('accept')).toEqual('*/*')
       })
 
       it('should add the new header', () => {
-        expect(h.get('content-type')).toEqual('application/json')
+        expect(headers.get('content-type')).toEqual('application/json')
       })
     })
 
     describe('given an existing header', () => {
-      const h = new Headers({ accept: '*/*' })
-      h.set('accept', 'image/png')
+      const headers = new Headers({ accept: '*/*' })
+      headers.set('accept', 'image/png')
 
       it('should override the existing header', () => {
-        expect(h.get('accept')).toEqual('image/png')
+        expect(headers.get('accept')).toEqual('image/png')
       })
     })
   })
 
   describe('.append()', () => {
     describe('given appending a new header', () => {
-      const h = new Headers({ accept: '*/*' })
-      h.append('content-type', 'application/json')
+      const headers = new Headers({ accept: '*/*' })
+      headers.append('content-type', 'application/json')
 
       it('should preserve existing headers', () => {
-        expect(h.get('accept')).toEqual('*/*')
+        expect(headers.get('accept')).toEqual('*/*')
       })
 
       it('should append the new header', () => {
-        expect(h.get('content-type')).toEqual('application/json')
+        expect(headers.get('content-type')).toEqual('application/json')
       })
     })
 
     describe('given appending an existing header', () => {
-      const h = new Headers({ accept: '*/*' })
-      h.append('accept', 'image/png')
+      const headers = new Headers({ accept: '*/*' })
+      headers.append('accept', 'image/png')
 
       it('should join headers by comma', () => {
-        expect(h.get('accept')).toEqual('*/*, image/png')
+        expect(headers.get('accept')).toEqual('*/*, image/png')
       })
     })
   })
@@ -130,14 +134,14 @@ describe('Headers', () => {
     describe('given looking for a header', () => {
       describe('and that header exists', () => {
         it('should return true', () => {
-          const h = new Headers({ accept: '*/*' })
-          expect(h.has('accept')).toBe(true)
+          const headers = new Headers({ accept: '*/*' })
+          expect(headers.has('accept')).toBe(true)
         })
 
         describe('and that header does not exist', () => {
           it('should return false', () => {
-            const h = new Headers({ accept: '*/*' })
-            expect(h.has('content-type')).toBe(false)
+            const headers = new Headers({ accept: '*/*' })
+            expect(headers.has('content-type')).toBe(false)
           })
         })
       })
@@ -147,17 +151,17 @@ describe('Headers', () => {
   describe('.delete()', () => {
     describe('given deleting an existing header', () => {
       it('should delete the header', () => {
-        const h = new Headers({ accept: '*/*' })
-        h.delete('accept')
-        expect(h.get('accept')).toBeNull()
+        const headers = new Headers({ accept: '*/*' })
+        headers.delete('accept')
+        expect(headers.get('accept')).toBeNull()
       })
     })
 
     describe('given deleting a non-existing header', () => {
       it('should do nothing', () => {
-        const h = new Headers({ accept: '*/*' })
-        h.delete('content-type')
-        expect(h.get('accept')).toEqual('*/*')
+        const headers = new Headers({ accept: '*/*' })
+        headers.delete('content-type')
+        expect(headers.get('accept')).toEqual('*/*')
       })
     })
   })
@@ -165,25 +169,30 @@ describe('Headers', () => {
   describe('.forEach()', () => {
     describe('given the traversal of each header', () => {
       it('should traverse each header once', () => {
-        const h = new Headers({ accept: '*/*', 'user-agent': 'agent' })
-        let headerSet = new Set()
-        h.forEach((value, name, headers) => {
+        const headers = new Headers({ accept: '*/*', 'user-agent': 'agent' })
+        const headerSet = new Set()
+
+        headers.forEach((value, name, headers) => {
           expect(value).toBe(headers.get(name))
           expect(headerSet.has(name)).toBe(false)
           headerSet.add(name)
         })
+
         expect(headerSet).toEqual(new Set(['accept', 'user-agent']))
       })
     })
+
     describe('given the traversal of each header with thisArg', () => {
       it('should traverse each header once, with bind', () => {
-        const h = new Headers({ accept: '*/*', 'user-agent': 'agent' })
-        let headerSet = new Set()
-        h.forEach(function (value, name, headers) {
+        const headers = new Headers({ accept: '*/*', 'user-agent': 'agent' })
+        const headerSet = new Set()
+
+        headers.forEach(function (value, name, headers) {
           expect(value).toBe(headers.get(name))
           expect(this.has(name)).toBe(false)
           this.add(name)
         }, headerSet)
+
         expect(headerSet).toEqual(new Set(['accept', 'user-agent']))
       })
     })
