@@ -1,6 +1,6 @@
-import HeadersPolyfill from './Headers'
 import { listToHeaders } from './listToHeaders'
-import { HeadersList } from './glossary'
+import HeadersPolyfill from '../Headers'
+import { HeadersList } from '../glossary'
 
 describe('given a list representation of headers', () => {
   it('returns a Headers instance', () => {

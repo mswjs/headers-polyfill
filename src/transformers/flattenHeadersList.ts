@@ -1,4 +1,4 @@
-import { HeadersList, FlatHeadersList } from './glossary'
+import { HeadersList, FlatHeadersList } from '../glossary'
 
 export function flattenHeadersList(list: HeadersList): FlatHeadersList {
   return list.map(([name, values]) => {

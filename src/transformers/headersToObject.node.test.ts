@@ -1,8 +1,8 @@
 /**
  * @jest-environment node
  */
-import HeadersPolyfill from './Headers'
 import { headersToObject } from './headersToObject'
+import HeadersPolyfill from '../Headers'
 
 describe('given Headers with a single header', () => {
   it('should return that single header in an Object', () => {

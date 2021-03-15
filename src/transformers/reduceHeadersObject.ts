@@ -1,4 +1,4 @@
-import { HeadersObject } from './glossary'
+import { HeadersObject } from '../glossary'
 
 /**
  * Reduces given headers object instnace.

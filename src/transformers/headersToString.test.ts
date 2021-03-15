@@ -1,5 +1,5 @@
-import { Headers as HeadersPolyfill } from '.'
 import { headersToString } from './headersToString'
+import HeadersPolyfill from '../Headers'
 
 describe('headersToString', () => {
   describe('given a standard Headers instance', () => {

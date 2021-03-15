@@ -1,4 +1,4 @@
-import { HeadersObject } from './glossary'
+import { HeadersObject } from '../glossary'
 
 // List of headers that cannot have multiple values,
 // while potentially having a comma in their single value.

@@ -1,4 +1,4 @@
-import { HeadersList } from './glossary'
+import { HeadersList } from '../glossary'
 import { flattenHeadersList } from './flattenHeadersList'
 
 describe('given a headers list', () => {

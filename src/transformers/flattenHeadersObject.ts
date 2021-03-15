@@ -1,4 +1,4 @@
-import { HeadersObject, FlatHeadersObject } from './glossary'
+import { HeadersObject, FlatHeadersObject } from '../glossary'
 import { reduceHeadersObject } from './reduceHeadersObject'
 
 export function flattenHeadersObject(

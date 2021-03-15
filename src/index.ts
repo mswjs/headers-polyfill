@@ -1,15 +1,15 @@
 export { default as Headers } from './Headers'
 
-export { headersToString } from './headersToString'
-export { headersToList } from './headersToList'
-export { headersToObject } from './headersToObject'
-export { stringToHeaders } from './stringToHeaders'
-export { listToHeaders } from './listToHeaders'
-export { objectToHeaders } from './objectToHeaders'
+export { headersToString } from './transformers/headersToString'
+export { headersToList } from './transformers/headersToList'
+export { headersToObject } from './transformers/headersToObject'
+export { stringToHeaders } from './transformers/stringToHeaders'
+export { listToHeaders } from './transformers/listToHeaders'
+export { objectToHeaders } from './transformers/objectToHeaders'
 
-export { reduceHeadersObject } from './reduceHeadersObject'
-export { flattenHeadersList } from './flattenHeadersList'
-export { flattenHeadersObject } from './flattenHeadersObject'
+export { reduceHeadersObject } from './transformers/reduceHeadersObject'
+export { flattenHeadersList } from './transformers/flattenHeadersList'
+export { flattenHeadersObject } from './transformers/flattenHeadersObject'
 
 /* Typings */
 export {

@@ -1,5 +1,5 @@
 import { reduceHeadersObject } from './reduceHeadersObject'
-import { HeadersObject } from './glossary'
+import { HeadersObject } from '../glossary'
 
 test('reduces headers to lowercase headers', () => {
   const headers: HeadersObject = {

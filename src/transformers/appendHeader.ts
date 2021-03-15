@@ -1,4 +1,4 @@
-import { HeadersObject } from './glossary'
+import { HeadersObject } from '../glossary'
 
 /**
  * Appends a given header to the headers object.

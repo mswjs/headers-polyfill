@@ -1,4 +1,4 @@
-import { HeadersList } from './glossary'
+import { HeadersList } from '../glossary'
 
 export function headersToList(headers: Headers): HeadersList {
   const headersList: HeadersList = []

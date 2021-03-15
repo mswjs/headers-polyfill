@@ -1,4 +1,4 @@
-import HeadersPolyfill from './Headers'
+import HeadersPolyfill from '../Headers'
 import { reduceHeadersObject } from './reduceHeadersObject'
 
 /**

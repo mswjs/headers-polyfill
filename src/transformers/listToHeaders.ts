@@ -1,5 +1,5 @@
-import HeadersPolyfill from './Headers'
-import { HeadersList } from './glossary'
+import HeadersPolyfill from '../Headers'
+import { HeadersList } from '../glossary'
 
 export function listToHeaders(list: HeadersList): HeadersPolyfill {
   const headers = new HeadersPolyfill()
