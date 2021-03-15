@@ -3,7 +3,7 @@
 
 # `headers-utils`
 
-Utilities for creating and transforming a `Headers` instance.
+A `Headers` instance polyfill and transformation library.
 
 ## Motivation
 
