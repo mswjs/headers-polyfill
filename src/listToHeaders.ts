@@ -1,7 +1,8 @@
+import HeadersPolyfill from './Headers'
 import { HeadersList } from './glossary'
 
-export function listToHeaders(list: HeadersList): Headers {
-  const headers = new Headers()
+export function listToHeaders(list: HeadersList): HeadersPolyfill {
+  const headers = new HeadersPolyfill()
 
   list.forEach(([name, value]) => {
     const values = ([] as string[]).concat(value)

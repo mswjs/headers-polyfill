@@ -5,7 +5,7 @@ export function headersToList(headers: Headers): HeadersList {
 
   headers.forEach((value, name) => {
     const resolvedValue = value.includes(',')
-      ? value.split(',').map((v) => v.trim())
+      ? value.split(',').map((value) => value.trim())
       : value
 
     headersList.push([name, resolvedValue])

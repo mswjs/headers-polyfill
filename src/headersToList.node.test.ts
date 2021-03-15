@@ -1,15 +1,19 @@
+/**
+ * @jest-environment node
+ */
+import HeadersPolyfill from './Headers'
 import { headersToList } from './headersToList'
 
 describe('given Headers with a single header', () => {
   it('should return its list representation', () => {
-    const headers = new Headers({ Accept: 'application/json' })
+    const headers = new HeadersPolyfill({ Accept: 'application/json' })
     expect(headersToList(headers)).toEqual([['accept', 'application/json']])
   })
 })
 
 describe('given Headers with a single header and multiple values', () => {
   it('should return those values in a nested list', () => {
-    const headers = new Headers({ Accept: 'application/json' })
+    const headers = new HeadersPolyfill({ Accept: 'application/json' })
     headers.append('Accept', 'text/plain')
 
     expect(headersToList(headers)).toEqual([
@@ -20,7 +24,7 @@ describe('given Headers with a single header and multiple values', () => {
 
 describe('given Headers with various headers', () => {
   it('should return their list representation', () => {
-    const headers = new Headers({
+    const headers = new HeadersPolyfill({
       Accept: 'application/json',
       'Content-Length': '1234',
       'Content-Type': 'text/xml',
