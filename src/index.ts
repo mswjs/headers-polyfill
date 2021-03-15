@@ -1,4 +1,4 @@
-export { Headers } from './Headers'
+export { default as Headers } from './Headers'
 
 export { headersToString } from './headersToString'
 export { headersToList } from './headersToList'

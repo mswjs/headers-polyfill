@@ -1,21 +1,51 @@
-const HEADERS_INVALID_CHARACTERS = /[^a-z0-9\-#$%&'*+.^_`|~]/i
+import { HeadersList, HeadersObject } from './glossary'
+import { normalizeHeaderName } from './utils/normalizeHeaderName'
+import { normalizeHeaderValue } from './utils/normalizeHeaderValue'
 
-export class Headers {
-  private map: Record<string, string> = {}
+export default class HeadersPolyfill {
+  private _headers: Record<string, string> = {}
 
-  constructor(headers?: any) {
-    if (headers?.constructor.name === 'Headers') {
-      headers.forEach((value: string, name: string) => {
+  constructor(init?: HeadersInit | HeadersObject | HeadersList) {
+    /**
+     * @note Cannot check for the `instanceof` as the `Headers` class
+     * is only defined in the browser.
+     */
+    if (init?.constructor.name === 'Headers') {
+      const initialHeaders = init as Headers
+      initialHeaders.forEach((value, name) => {
         this.append(name, value)
       }, this)
-    } else if (Array.isArray(headers)) {
-      headers.forEach(([name, value]) => {
+    } else if (Array.isArray(init)) {
+      init.forEach(([name, value]) => {
         this.append(name, Array.isArray(value) ? value.join(', ') : value)
       })
-    } else if (headers) {
-      Object.getOwnPropertyNames(headers).forEach((name) => {
-        this.append(name, headers[name])
+    } else if (init) {
+      Object.getOwnPropertyNames(init).forEach((name) => {
+        const value = init[name]
+        this.append(name, Array.isArray(value) ? value.join(', ') : value)
       })
+    }
+  }
+
+  [Symbol.iterator]() {
+    return this.entries()
+  }
+
+  *keys(): IterableIterator<string> {
+    for (const name of Object.keys(this._headers)) {
+      yield name
+    }
+  }
+
+  *values(): IterableIterator<string> {
+    for (const value of Object.values(this._headers)) {
+      yield value
+    }
+  }
+
+  *entries(): IterableIterator<[string, string]> {
+    for (const name of Object.keys(this._headers)) {
+      yield [name, this.get(name)]
     }
   }
 
@@ -23,23 +53,25 @@ export class Headers {
    * Sets a new value for an existing header inside a `Headers` object, or adds the header if it does not already exist.
    */
   set(name: string, value: string) {
-    this.map[this.normalizeName(name)] = this.normalizeValue(value)
+    this._headers[normalizeHeaderName(name)] = normalizeHeaderValue(value)
   }
 
   /**
    * Appends a new value onto an existing header inside a `Headers` object, or adds the header if it does not already exist.
    */
   append(name: string, value: string) {
-    name = this.normalizeName(name)
-    value = this.normalizeValue(value)
-    this.map[name] = this.has(name) ? `${this.map[name]}, ${value}` : value
+    name = normalizeHeaderName(name)
+    value = normalizeHeaderValue(value)
+    this._headers[name] = this.has(name)
+      ? `${this._headers[name]}, ${value}`
+      : value
   }
 
   /**
    * Deletes a header from the `Headers` object.
    */
   delete(name: string) {
-    delete this.map[this.normalizeName(name)]
+    delete this._headers[normalizeHeaderName(name)]
     return this
   }
 
@@ -47,21 +79,21 @@ export class Headers {
    * Returns a `ByteString` sequence of all the values of a header with a given name.
    */
   get(name: string): string | null {
-    return this.map[this.normalizeName(name)] || null
+    return this._headers[normalizeHeaderName(name)] || null
   }
 
   /**
    * Returns the map of all headers in a `Headers` object.
    */
   getAllHeaders(): Record<string, string> {
-    return this.map
+    return this._headers
   }
 
   /**
    * Returns a boolean stating whether a `Headers` object contains a certain header.
    */
   has(name: string): boolean {
-    return this.map.hasOwnProperty(this.normalizeName(name))
+    return this._headers.hasOwnProperty(normalizeHeaderName(name))
   }
 
   /**
@@ -69,33 +101,18 @@ export class Headers {
    * calling the given callback for each header.
    */
   forEach<ThisArg = this>(
-    callback: (this: ThisArg, value: string, name: string, thisHeaders: this) => void,
+    callback: (
+      this: ThisArg,
+      value: string,
+      name: string,
+      parent: this
+    ) => void,
     thisArg?: ThisArg
   ) {
-    for (let name in this.map) {
-      if (this.map.hasOwnProperty(name)) {
-        callback.call(thisArg, this.map[name], name, this)
+    for (const name in this._headers) {
+      if (this._headers.hasOwnProperty(name)) {
+        callback.call(thisArg, this._headers[name], name, this)
       }
     }
-  }
-
-  private normalizeName(name: string): string {
-    if (typeof name !== 'string') {
-      name = String(name)
-    }
-
-    if (HEADERS_INVALID_CHARACTERS.test(name) || name.trim() === '') {
-      throw new TypeError('Invalid character in header field name')
-    }
-
-    return name.toLowerCase()
-  }
-
-  private normalizeValue(value: any) {
-    if (typeof value !== 'string') {
-      value = String(value)
-    }
-
-    return value
   }
 }
