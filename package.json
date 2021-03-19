@@ -1,7 +1,7 @@
 {
   "name": "headers-utils",
   "version": "2.0.0",
-  "description": "A Headers instance polyfill and transformation library.",
+  "description": "A Headers class polyfill and transformation library.",
   "main": "lib/index.js",
   "types": "lib",
   "repository": "https://github.com/mswjs/headers-utils",
