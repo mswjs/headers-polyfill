@@ -9,7 +9,7 @@ A `Headers` class polyfill and transformation library.
 
 Various request issuing libraries utilize a different format of headers. This library chooses the [`Headers`](https://developer.mozilla.org/en-US/docs/Web/API/Headers) instance as the middle-ground between server and client, and provides functions to convert that instance to primitives and vice-versa.
 
-## Getting started
+## Install
 
 ```bash
 $ npm install headers-utils
@@ -28,6 +28,55 @@ const headers = new Headers({
 })
 
 headers.get('accept') // "*/*"
+```
+
+## Methods
+
+The `Headers` polyfill instance supports the same methods as the standard `Headers` instance:
+
+- [`.has()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/has)
+- [`.get()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/get)
+- [`.set()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/set)
+- [`.append()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/append)
+- [`.delete()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/delete)
+- `.forEach()`
+
+As well as the iterator methods:
+
+- [`.keys()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/keys)
+- [`.values()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/values)
+- [`.entries()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/entries)
+
+### Custom methods
+
+In addition, the polyfill instance has the following methods:
+
+- `.all()`
+
+Returns the object of the _normalized_ header name/value pairs.
+
+```js
+const headers = new Headers({
+  Accept: '*/*',
+  'Content-Type': 'application/json',
+})
+
+headers.all()
+// { "accept": "*/*", "content-type": "application/json" }
+```
+
+- `.raw()`
+
+Similar to the `.all()` method, `.raw()` returns an object consisting of the header name/value pairs, but preserving raw header names.
+
+```js
+const headers = new Headers({
+  Accept: '*/*',
+  'Content-Type': 'application/json',
+})
+
+headers.raw()
+// { "Accept": "*/*", "Content-Type": "application/json" }
 ```
 
 ## Transformations
