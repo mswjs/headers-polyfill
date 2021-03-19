@@ -3,12 +3,17 @@ import { normalizeHeaderName } from './utils/normalizeHeaderName'
 import { normalizeHeaderValue } from './utils/normalizeHeaderValue'
 
 export default class HeadersPolyfill {
+  // Normalized header {"name":"a, b"} storage.
   private _headers: Record<string, string> = {}
+
+  // Keeps the mapping between the raw header name
+  // and the normalized header name to ease the lookup.
+  private _names: Map<string, string> = new Map()
 
   constructor(init?: HeadersInit | HeadersObject | HeadersList) {
     /**
-     * @note Cannot check for the `instanceof` as the `Headers` class
-     * is only defined in the browser.
+     * @note Cannot check if the `init` is an instance of the `Headers`
+     * because that class is only defined in the browser.
      */
     if (init?.constructor.name === 'Headers') {
       const initialHeaders = init as Headers
@@ -50,32 +55,6 @@ export default class HeadersPolyfill {
   }
 
   /**
-   * Sets a new value for an existing header inside a `Headers` object, or adds the header if it does not already exist.
-   */
-  set(name: string, value: string) {
-    this._headers[normalizeHeaderName(name)] = normalizeHeaderValue(value)
-  }
-
-  /**
-   * Appends a new value onto an existing header inside a `Headers` object, or adds the header if it does not already exist.
-   */
-  append(name: string, value: string) {
-    name = normalizeHeaderName(name)
-    value = normalizeHeaderValue(value)
-    this._headers[name] = this.has(name)
-      ? `${this._headers[name]}, ${value}`
-      : value
-  }
-
-  /**
-   * Deletes a header from the `Headers` object.
-   */
-  delete(name: string) {
-    delete this._headers[normalizeHeaderName(name)]
-    return this
-  }
-
-  /**
    * Returns a `ByteString` sequence of all the values of a header with a given name.
    */
   get(name: string): string | null {
@@ -83,10 +62,51 @@ export default class HeadersPolyfill {
   }
 
   /**
-   * Returns the map of all headers in a `Headers` object.
+   * Sets a new value for an existing header inside a `Headers` object, or adds the header if it does not already exist.
+   */
+  set(name: string, value: string) {
+    const normalizedName = normalizeHeaderName(name)
+    this._headers[normalizedName] = normalizeHeaderValue(value)
+    this._names.set(normalizedName, name)
+  }
+
+  /**
+   * Appends a new value onto an existing header inside a `Headers` object, or adds the header if it does not already exist.
+   */
+  append(name: string, value: string) {
+    const resolvedValue = this.has(name) ? `${this.get(name)}, ${value}` : value
+    this.set(name, resolvedValue)
+  }
+
+  /**
+   * Deletes a header from the `Headers` object.
+   */
+  delete(name: string) {
+    if (!this.has(name)) {
+      return this
+    }
+
+    const normalizedName = normalizeHeaderName(name)
+    delete this._headers[normalizedName]
+    this._names.delete(normalizedName)
+    return this
+  }
+
+  /**
+   * Returns the map of all the headers.
    */
   getAllHeaders(): Record<string, string> {
     return this._headers
+  }
+
+  /**
+   * Returns the map of all the raw headers.
+   */
+  getRawHeaders(): Record<string, string> {
+    return Object.entries(this._headers).reduce((headers, [name, value]) => {
+      headers[this._names.get(name)] = value
+      return headers
+    }, {})
   }
 
   /**

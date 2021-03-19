@@ -1,61 +1,39 @@
 import Headers from './Headers'
 
-describe('given I create a new Headers instance', () => {
-  describe('without any arguments', () => {
-    it('should return an empty object', () => {
-      const headers = new Headers()
-      expect(headers.getAllHeaders()).toEqual({})
-    })
+describe('constructor()', () => {
+  it('can be created without any arguments', () => {
+    const headers = new Headers()
+    expect(headers.getAllHeaders()).toEqual({})
   })
 
-  describe('with initial headers object', () => {
-    it('should return that headers object', () => {
-      const headers = new Headers({ accept: '*/*' })
-      expect(headers.get('accept')).toEqual('*/*')
-    })
+  it('can be created given a Headers instance', () => {
+    const headers = new Headers(new window.Headers({ Accept: '*/*' }))
+    expect(headers.getAllHeaders()).toEqual({ accept: '*/*' })
   })
 
-  describe('with initial headers list', () => {
-    describe('with a single value', () => {
-      it('should set that value', () => {
-        const headers = new Headers([['accept', '*/*']])
-        expect(headers.get('accept')).toEqual('*/*')
-      })
-    })
+  it('can be created given a ["name", "a"] list', () => {
+    const headers = new Headers([['accept', '*/*']])
+    expect(headers.get('accept')).toEqual('*/*')
+  })
 
-    describe('with multiple values represented as a list', () => {
-      it('should join values', () => {
-        const headers = new Headers([
-          ['accept', ['application/json', 'image/png']],
-        ])
-        expect(headers.get('accept')).toEqual('application/json, image/png')
-      })
-    })
+  it('can be created given a ["name", ["a", "b"]] list', () => {
+    const headers = new Headers([['accept', ['application/json', 'image/png']]])
+    expect(headers.get('accept')).toEqual('application/json, image/png')
+  })
 
-    describe('with multiple values represented as a string', () => {
-      it('should preserve values as-is', () => {
-        const headers = new Headers([['accept', 'application/json, image/png']])
-        expect(headers.get('accept')).toEqual('application/json, image/png')
-      })
-    })
+  it('can be created given a ["name", "a, b"] list', () => {
+    const headers = new Headers([['accept', 'application/json, image/png']])
+    expect(headers.get('accept')).toEqual('application/json, image/png')
+  })
+
+  it('can be created given an headers object', () => {
+    const headers = new Headers({ accept: '*/*' })
+    expect(headers.get('accept')).toEqual('*/*')
   })
 })
 
 describe('[Symbol.iterator]', () => {
-  describe('given a Headers instance with no headers set', () => {
-    it('returns an empty iterator', () => {
-      const headers = new Headers()
-      const entries = []
-
-      for (const entry of headers) {
-        entries.push(entry)
-      }
-
-      expect(entries).toEqual([])
-    })
-  })
-
-  describe('given a Headers instance with headers set', () => {
+  it('returns the iterator with the [name, value] pairs', () => {
     const headers = new Headers({
       accept: '*/*',
       'accept-language': 'en-US',
@@ -74,258 +52,255 @@ describe('[Symbol.iterator]', () => {
       ['content-type', 'application/json'],
     ])
   })
+
+  it('returns an empty iterator when there is no headers', () => {
+    const headers = new Headers()
+    const entries = []
+
+    for (const entry of headers) {
+      entries.push(entry)
+    }
+
+    expect(entries).toEqual([])
+  })
 })
 
 describe('.keys()', () => {
-  describe('given a Headers instance with no headers set', () => {
-    it('returns an empty iterator', () => {
-      const headers = new Headers()
-      const keys = []
-
-      for (const name of headers.keys()) {
-        keys.push(name)
-      }
-
-      expect(keys).toEqual([])
+  it('returns the iterator with the header keys', () => {
+    const headers = new Headers({
+      accept: '*/*',
+      'accept-language': 'en-US',
+      'content-type': 'application/json',
     })
+    const keys = []
+
+    for (const name of headers.keys()) {
+      keys.push(name)
+    }
+
+    expect(keys).toEqual(['accept', 'accept-language', 'content-type'])
   })
 
-  describe('given a Headers instance with headers set', () => {
-    it('returns the list of header names', () => {
-      const headers = new Headers({
-        accept: '*/*',
-        'accept-language': 'en-US',
-        'content-type': 'application/json',
-      })
-      const keys = []
+  it('returns an empty iterator when there is no headers', () => {
+    const headers = new Headers()
+    const keys = []
 
-      for (const name of headers.keys()) {
-        keys.push(name)
-      }
+    for (const name of headers.keys()) {
+      keys.push(name)
+    }
 
-      expect(keys).toEqual(['accept', 'accept-language', 'content-type'])
-    })
+    expect(keys).toEqual([])
   })
 })
 
 describe('.values()', () => {
-  describe('given a Headers instance with no headers set', () => {
-    it('returns an empty iterator', () => {
-      const headers = new Headers()
-      const values = []
-
-      for (const value of headers.values()) {
-        values.push(value)
-      }
-
-      expect(values).toEqual([])
+  it('returns the iterator with the header values', () => {
+    const headers = new Headers({
+      accept: '*/*',
+      'accept-language': 'en-US',
+      'content-type': 'application/json',
     })
+    const values = []
+
+    for (const value of headers.values()) {
+      values.push(value)
+    }
+
+    expect(values).toEqual(['*/*', 'en-US', 'application/json'])
   })
 
-  describe('given a Headers instance with headers set', () => {
-    it('returns the list of header values', () => {
-      const headers = new Headers({
-        accept: '*/*',
-        'accept-language': 'en-US',
-        'content-type': 'application/json',
-      })
-      const values = []
+  it('returns an empty iterator when there is no headers', () => {
+    const headers = new Headers()
+    const values = []
 
-      for (const value of headers.values()) {
-        values.push(value)
-      }
+    for (const value of headers.values()) {
+      values.push(value)
+    }
 
-      expect(values).toEqual(['*/*', 'en-US', 'application/json'])
-    })
+    expect(values).toEqual([])
   })
 })
 
 describe('.entries()', () => {
-  describe('given a Headers instance with no headers set', () => {
-    it('returns an empty iterator', () => {
-      const headers = new Headers()
-      const entries = []
-
-      for (const entry of headers.entries()) {
-        entries.push(entry)
-      }
-
-      expect(entries).toEqual([])
+  it('returns the iterator with the [name, value] pairs', () => {
+    const headers = new Headers({
+      accept: '*/*',
+      'accept-language': 'en-US',
+      'content-type': 'application/json',
     })
+    const entries = []
+
+    for (const entry of headers.entries()) {
+      entries.push(entry)
+    }
+
+    expect(entries).toEqual([
+      ['accept', '*/*'],
+      ['accept-language', 'en-US'],
+      ['content-type', 'application/json'],
+    ])
   })
 
-  describe('given a Headers instance with headers set', () => {
-    it('returns the list of header entries', () => {
-      const headers = new Headers({
-        accept: '*/*',
-        'accept-language': 'en-US',
-        'content-type': 'application/json',
-      })
-      const entries = []
+  it('returns an empty iterator when there is no headers', () => {
+    const headers = new Headers()
+    const entries = []
 
-      for (const entry of headers.entries()) {
-        entries.push(entry)
-      }
+    for (const entry of headers.entries()) {
+      entries.push(entry)
+    }
 
-      expect(entries).toEqual([
-        ['accept', '*/*'],
-        ['accept-language', 'en-US'],
-        ['content-type', 'application/json'],
-      ])
-    })
+    expect(entries).toEqual([])
   })
 })
 
 describe('.get()', () => {
-  describe('given getting an existing header', () => {
-    it('should return that header value', () => {
-      const headers = new Headers({ accept: '*/*' })
-      expect(headers.get('accept')).toEqual('*/*')
-    })
+  it('returns the value of the existing header name', () => {
+    const headers = new Headers({ 'Content-Type': 'text/plain' })
+    expect(headers.get('Content-Type')).toEqual('text/plain')
+    expect(headers.get('content-type')).toEqual('text/plain')
+    expect(headers.get('CoNtEnT-TyPe')).toEqual('text/plain')
   })
 
-  describe('given getting a non-existing header', () => {
-    it('should return explicit null', () => {
-      const headers = new Headers({ accept: '*/*' })
-      expect(headers.get('content-type')).toBeNull()
-    })
+  it('returns null given a non-existing header name', () => {
+    const headers = new Headers({ 'Content-Type': 'text/plain' })
+    expect(headers.get('accept')).toBeNull()
+    expect(headers.get('Accept')).toBeNull()
+    expect(headers.get('AcCePt')).toBeNull()
   })
 })
 
 describe('.getAllHeaders()', () => {
-  describe('given getting all the headers', () => {
-    describe('and the headers are empty', () => {
-      it('should return an empty object', () => {
-        const headers = new Headers()
-        expect(headers.getAllHeaders()).toEqual({})
-      })
+  it('returns a headers object with normalized names', () => {
+    const headers = new Headers({
+      Accept: '*/*',
+      'Content-Type': ['application/json', 'text/plain'],
     })
+    expect(headers.getAllHeaders()).toEqual({
+      accept: '*/*',
+      'content-type': 'application/json, text/plain',
+    })
+  })
 
-    describe('and the headers are present', () => {
-      const headers = new Headers({
-        accept: '*/*',
-        'content-type': ['application/json', 'text/plain'],
-      })
-      expect(headers.getAllHeaders()).toEqual({
-        accept: '*/*',
-        'content-type': 'application/json, text/plain',
-      })
+  it('returns an empty object when there is no headers', () => {
+    expect(new Headers().getAllHeaders()).toEqual({})
+    expect(new Headers({}).getAllHeaders()).toEqual({})
+  })
+})
+
+describe('.getRawHeaders()', () => {
+  it('returns a headers objects with the raw names', () => {
+    const headers = new Headers({
+      Accept: '*/*',
+      'ConTent-Type': ['application/json', 'text/plain'],
     })
+    expect(headers.getRawHeaders()).toEqual({
+      Accept: '*/*',
+      'ConTent-Type': 'application/json, text/plain',
+    })
+  })
+
+  it('returns an empty object when there is no headers', () => {
+    expect(new Headers().getRawHeaders()).toEqual({})
+    expect(new Headers({}).getRawHeaders()).toEqual({})
   })
 })
 
 describe('.set()', () => {
-  describe('given setting a new header', () => {
+  it('sets a new header', () => {
     const headers = new Headers({ accept: '*/*' })
+
     headers.set('content-type', 'application/json')
-
-    it('should preserve existing headers', () => {
-      expect(headers.get('accept')).toEqual('*/*')
-    })
-
-    it('should add the new header', () => {
-      expect(headers.get('content-type')).toEqual('application/json')
-    })
+    expect(headers.get('accept')).toEqual('*/*')
+    expect(headers.get('content-type')).toEqual('application/json')
   })
 
-  describe('given an existing header', () => {
+  it('overrides an existing header with the same name', () => {
     const headers = new Headers({ accept: '*/*' })
-    headers.set('accept', 'image/png')
 
-    it('should override the existing header', () => {
-      expect(headers.get('accept')).toEqual('image/png')
-    })
+    headers.set('accept', 'image/png')
+    expect(headers.get('accept')).toEqual('image/png')
+
+    headers.set('AcCePt', 'text/plain')
+    expect(headers.get('accept')).toEqual('text/plain')
   })
 })
 
 describe('.append()', () => {
-  describe('given appending a new header', () => {
+  it('appends a new header', () => {
     const headers = new Headers({ accept: '*/*' })
+
     headers.append('content-type', 'application/json')
-
-    it('should preserve existing headers', () => {
-      expect(headers.get('accept')).toEqual('*/*')
-    })
-
-    it('should append the new header', () => {
-      expect(headers.get('content-type')).toEqual('application/json')
-    })
+    expect(headers.get('accept')).toEqual('*/*')
+    expect(headers.get('content-type')).toEqual('application/json')
   })
 
-  describe('given appending an existing header', () => {
+  it('joins the values with the existing header', () => {
     const headers = new Headers({ accept: '*/*' })
-    headers.append('accept', 'image/png')
 
-    it('should join headers by comma', () => {
-      expect(headers.get('accept')).toEqual('*/*, image/png')
-    })
+    headers.append('accept', 'image/png')
+    expect(headers.get('accept')).toEqual('*/*, image/png')
   })
 })
 
 describe('.has()', () => {
-  describe('given looking for a header', () => {
-    describe('and that header exists', () => {
-      it('should return true', () => {
-        const headers = new Headers({ accept: '*/*' })
-        expect(headers.has('accept')).toBe(true)
-      })
+  it('returns true given an existing header name', () => {
+    const headers = new Headers({ accept: '*/*' })
+    expect(headers.has('accept')).toBe(true)
+    expect(headers.has('AcCePt')).toBe(true)
+  })
 
-      describe('and that header does not exist', () => {
-        it('should return false', () => {
-          const headers = new Headers({ accept: '*/*' })
-          expect(headers.has('content-type')).toBe(false)
-        })
-      })
-    })
+  it('returns false given a non-existing header name', () => {
+    const headers = new Headers({ accept: '*/*' })
+    expect(headers.has('content-type')).toBe(false)
+    expect(headers.has('CoNtEnT-TyPe')).toBe(false)
   })
 })
 
 describe('.delete()', () => {
-  describe('given deleting an existing header', () => {
-    it('should delete the header', () => {
-      const headers = new Headers({ accept: '*/*' })
-      headers.delete('accept')
-      expect(headers.get('accept')).toBeNull()
-    })
+  it('deletes the existing header', () => {
+    const headers = new Headers({ accept: '*/*' })
+
+    headers.delete('accept')
+    expect(headers.has('accept')).toBe(false)
+    expect(headers.has('AcCePt')).toBe(false)
+    expect(headers.get('accept')).toBeNull()
+    expect(headers.get('AcCePt')).toBeNull()
   })
 
-  describe('given deleting a non-existing header', () => {
-    it('should do nothing', () => {
-      const headers = new Headers({ accept: '*/*' })
-      headers.delete('content-type')
-      expect(headers.get('accept')).toEqual('*/*')
-    })
+  it('does nothing given a non-existing header', () => {
+    const headers = new Headers({ accept: '*/*' })
+
+    headers.delete('content-type')
+    expect(headers.get('accept')).toEqual('*/*')
+    expect(headers.get('AcCePt')).toEqual('*/*')
   })
 })
 
 describe('.forEach()', () => {
-  describe('given the traversal of each header', () => {
-    it('should traverse each header once', () => {
-      const headers = new Headers({ accept: '*/*', 'user-agent': 'agent' })
-      const headerSet = new Set()
+  it('traverses each header once', () => {
+    const headers = new Headers({ accept: '*/*', 'user-agent': 'agent' })
+    const headerSet = new Set()
 
-      headers.forEach((value, name, headers) => {
-        expect(value).toBe(headers.get(name))
-        expect(headerSet.has(name)).toBe(false)
-        headerSet.add(name)
-      })
-
-      expect(headerSet).toEqual(new Set(['accept', 'user-agent']))
+    headers.forEach((value, name, headers) => {
+      expect(value).toBe(headers.get(name))
+      expect(headerSet.has(name)).toBe(false)
+      headerSet.add(name)
     })
+
+    // `Headers.forEach` returns normalized lowecase names.
+    expect(headerSet).toEqual(new Set(['accept', 'user-agent']))
   })
 
-  describe('given the traversal of each header with thisArg', () => {
-    it('should traverse each header once, with bind', () => {
-      const headers = new Headers({ accept: '*/*', 'user-agent': 'agent' })
-      const headerSet = new Set()
+  it('traverses each header once with a custom "this" argument', () => {
+    const headers = new Headers({ accept: '*/*', 'User-Agent': 'agent' })
+    const headerSet = new Set()
 
-      headers.forEach(function (value, name, headers) {
-        expect(value).toBe(headers.get(name))
-        expect(this.has(name)).toBe(false)
-        this.add(name)
-      }, headerSet)
+    headers.forEach(function (value, name, headers) {
+      expect(value).toBe(headers.get(name))
+      expect(this.has(name)).toBe(false)
+      this.add(name)
+    }, headerSet)
 
-      expect(headerSet).toEqual(new Set(['accept', 'user-agent']))
-    })
+    expect(headerSet).toEqual(new Set(['accept', 'user-agent']))
   })
 })
