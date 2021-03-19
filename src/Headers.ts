@@ -93,16 +93,16 @@ export default class HeadersPolyfill {
   }
 
   /**
-   * Returns the map of all the headers.
+   * Returns the object of all the normalized headers.
    */
-  getAllHeaders(): Record<string, string> {
+  all(): Record<string, string> {
     return this._headers
   }
 
   /**
-   * Returns the map of all the raw headers.
+   * Returns the object of all the raw headers.
    */
-  getRawHeaders(): Record<string, string> {
+  raw(): Record<string, string> {
     return Object.entries(this._headers).reduce((headers, [name, value]) => {
       headers[this._names.get(name)] = value
       return headers

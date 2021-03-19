@@ -3,12 +3,12 @@ import Headers from './Headers'
 describe('constructor()', () => {
   it('can be created without any arguments', () => {
     const headers = new Headers()
-    expect(headers.getAllHeaders()).toEqual({})
+    expect(headers.all()).toEqual({})
   })
 
   it('can be created given a Headers instance', () => {
     const headers = new Headers(new window.Headers({ Accept: '*/*' }))
-    expect(headers.getAllHeaders()).toEqual({ accept: '*/*' })
+    expect(headers.all()).toEqual({ accept: '*/*' })
   })
 
   it('can be created given a ["name", "a"] list', () => {
@@ -169,39 +169,39 @@ describe('.get()', () => {
   })
 })
 
-describe('.getAllHeaders()', () => {
+describe('.all()', () => {
   it('returns a headers object with normalized names', () => {
     const headers = new Headers({
       Accept: '*/*',
       'Content-Type': ['application/json', 'text/plain'],
     })
-    expect(headers.getAllHeaders()).toEqual({
+    expect(headers.all()).toEqual({
       accept: '*/*',
       'content-type': 'application/json, text/plain',
     })
   })
 
   it('returns an empty object when there is no headers', () => {
-    expect(new Headers().getAllHeaders()).toEqual({})
-    expect(new Headers({}).getAllHeaders()).toEqual({})
+    expect(new Headers().all()).toEqual({})
+    expect(new Headers({}).all()).toEqual({})
   })
 })
 
-describe('.getRawHeaders()', () => {
+describe('.raw()', () => {
   it('returns a headers objects with the raw names', () => {
     const headers = new Headers({
       Accept: '*/*',
       'ConTent-Type': ['application/json', 'text/plain'],
     })
-    expect(headers.getRawHeaders()).toEqual({
+    expect(headers.raw()).toEqual({
       Accept: '*/*',
       'ConTent-Type': 'application/json, text/plain',
     })
   })
 
   it('returns an empty object when there is no headers', () => {
-    expect(new Headers().getRawHeaders()).toEqual({})
-    expect(new Headers({}).getRawHeaders()).toEqual({})
+    expect(new Headers().raw()).toEqual({})
+    expect(new Headers({}).raw()).toEqual({})
   })
 })
 
