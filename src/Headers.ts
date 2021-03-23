@@ -16,7 +16,7 @@ export default class HeadersPolyfill {
      * because that class is only defined in the browser.
      */
     if (
-      init?.constructor.name === 'Headers' ||
+      ['Headers', 'HeadersPolyfill'].includes(init?.constructor.name) ||
       init instanceof HeadersPolyfill
     ) {
       const initialHeaders = init as Headers
