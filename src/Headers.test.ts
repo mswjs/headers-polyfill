@@ -11,6 +11,12 @@ describe('constructor()', () => {
     expect(headers.all()).toEqual({ accept: '*/*' })
   })
 
+  it('can be created given a polyfilled Headers instance', () => {
+    const firstHeaders = new Headers({ Accept: '*/*' })
+    const headers = new Headers(firstHeaders)
+    expect(headers.all()).toEqual({ accept: '*/*' })
+  })
+
   it('can be created given a ["name", "a"] list', () => {
     const headers = new Headers([['accept', '*/*']])
     expect(headers.get('accept')).toEqual('*/*')

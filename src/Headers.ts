@@ -15,7 +15,10 @@ export default class HeadersPolyfill {
      * @note Cannot check if the `init` is an instance of the `Headers`
      * because that class is only defined in the browser.
      */
-    if (init?.constructor.name === 'Headers') {
+    if (
+      init?.constructor.name === 'Headers' ||
+      init instanceof HeadersPolyfill
+    ) {
       const initialHeaders = init as Headers
       initialHeaders.forEach((value, name) => {
         this.append(name, value)
