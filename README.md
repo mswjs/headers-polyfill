@@ -1,6 +1,6 @@
-[![Published version](https://img.shields.io/npm/v/headers-utils.svg)](https://www.npmjs.com/package/headers-utils)
+[![Published version](https://img.shields.io/npm/v/headers-polyfill.svg)](https://www.npmjs.com/package/headers-polyfill)
 
-# `headers-utils`
+# `headers-polyfill`
 
 A `Headers` class polyfill and transformation library.
 
@@ -11,7 +11,9 @@ Various request issuing libraries utilize a different format of headers. This li
 ## Install
 
 ```bash
-$ npm install headers-utils
+npm install headers-polyfill
+# or
+yarn add headers-polyfill
 ```
 
 ## Polyfill
@@ -19,7 +21,7 @@ $ npm install headers-utils
 This package exports the `Headers` class that polyfills the native [`window.Headers`](https://developer.mozilla.org/en-US/docs/Web/API/Headers) implementation. This allows you to construct and manage headers using the same API in non-browser environments.
 
 ```js
-import { Headers } from 'headers-utils'
+import { Headers } from 'headers-polyfill'
 
 const headers = new Headers({
   Accept: '*/*',
@@ -85,7 +87,7 @@ headers.raw()
 - `headersToString: (h: Headers): string`
 
 ```js
-import { headersToString } from 'headers-utils'
+import { headersToString } from 'headers-polyfill'
 
 headersToString(
   new Headers({
@@ -100,7 +102,7 @@ headersToString(
 - `headersToList: (h: Headers): Array<[string, string | string[]]>`
 
 ```js
-import { headersToList } from 'headers-utils'
+import { headersToList } from 'headers-polyfill'
 
 headersToList(
   new Headers({
@@ -114,7 +116,7 @@ headersToList(
 - `headersToObject: (h: Headers): Record<string, string | string[]>`
 
 ```js
-import { headersToObject } from 'headers-utils'
+import { headersToObject } from 'headers-polyfill'
 
 headersToObject(
   new Headers({
@@ -130,7 +132,7 @@ headersToObject(
 - `stringToHeaders: (s: string): Headers`
 
 ```js
-import { stringToHeaders } from 'headers-utils'
+import { stringToHeaders } from 'headers-polyfill'
 
 
 const stringToHeaders(`
@@ -143,7 +145,7 @@ content-type: text/plain, image/png
 - `listToHeaders: (l: Array<[string, string | string[]]>): Headers`
 
 ```js
-import { listToHeaders } from 'headers-utils'
+import { listToHeaders } from 'headers-polyfill'
 
 listToHeaders([
   ['connection', 'keep-alive'],
@@ -155,7 +157,7 @@ listToHeaders([
 - `objectToHeaders: (o: Record<string, string | string[] | undefined>): Headers`
 
 ```js
-import { objectToHeaders } from 'headers-utils'
+import { objectToHeaders } from 'headers-polyfill'
 
 objectToHeaders({
   connection: 'keep-alive',
@@ -171,7 +173,7 @@ objectToHeaders({
 - `reduceHeadersObject: <R>(o: Record<string, string | string[]>, reducer: (acc: R, name: string, value: string | string[]) => R) => R`
 
 ```js
-import { reduceHeadersObject } from 'headers-utils'
+import { reduceHeadersObject } from 'headers-polyfill'
 
 reduceHeadersObject <
   HeadersObject >
@@ -190,7 +192,7 @@ reduceHeadersObject <
 - `appendHeader: (o: Record<string, string | string[]>, n: string, v: string | string[]): Record<string, string | string[]>`
 
 ```js
-import { appendHeader } from 'headers-utils'
+import { appendHeader } from 'headers-polyfill'
 
 appendHeader(
   { 'content-type': 'application/json' },
@@ -203,7 +205,7 @@ appendHeader(
 - `flattenHeadersList: (l: Array<[string, string | string[]]>): Array<string, string>`
 
 ```js
-import { flattenHeadersList } from 'headers-utils'
+import { flattenHeadersList } from 'headers-polyfill'
 
 flattenHeadersList([['content-type', ['text/plain', 'image/png']]])
 // ['content-type', 'text/plain; image/png']
@@ -212,7 +214,7 @@ flattenHeadersList([['content-type', ['text/plain', 'image/png']]])
 - `flattenHeadersObject: (o: Record<string, string | string[]>): Record<string, string>`
 
 ```js
-import { flattenHeadersObject } from 'headers-utils'
+import { flattenHeadersObject } from 'headers-polyfill'
 
 flattenHeadersObject({
   'content-type': ['text/plain', 'image/png'],
