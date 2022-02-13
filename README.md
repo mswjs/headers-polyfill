@@ -1,5 +1,4 @@
 [![Published version](https://img.shields.io/npm/v/headers-utils.svg)](https://www.npmjs.com/package/headers-utils)
-[![Build status](https://img.shields.io/circleci/project/github/mswjs/headers-utils/master.svg)](https://npmjs.com/package/headers-utils)
 
 # `headers-utils`
 
