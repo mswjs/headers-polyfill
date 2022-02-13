@@ -1,10 +1,10 @@
 {
-  "name": "headers-utils",
+  "name": "headers-polyfill",
   "version": "3.0.2",
-  "description": "A Headers class polyfill and transformation library.",
+  "description": "A native \"Headers\" class polyfill.",
   "main": "lib/index.js",
   "types": "lib",
-  "repository": "https://github.com/mswjs/headers-utils",
+  "repository": "https://github.com/mswjs/headers-polyfill",
   "author": "Artem Zakharchenko",
   "license": "MIT",
   "scripts": {
