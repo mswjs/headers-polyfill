@@ -8,6 +8,10 @@ export function stringToHeaders(str: string): HeadersPolyfill {
   const lines = str.trim().split(/[\r\n]+/)
 
   return lines.reduce((headers, line) => {
+    if (line.trim() === '') {
+      return headers
+    }
+
     const parts = line.split(': ')
     const name = parts.shift()
     const value = parts.join(': ')
