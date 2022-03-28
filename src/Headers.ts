@@ -67,7 +67,7 @@ export default class HeadersPolyfill {
   /**
    * Sets a new value for an existing header inside a `Headers` object, or adds the header if it does not already exist.
    */
-  set(name: string, value: string) {
+  set(name: string, value: string): void {
     const normalizedName = normalizeHeaderName(name)
     this._headers[normalizedName] = normalizeHeaderValue(value)
     this._names.set(normalizedName, name)
@@ -76,7 +76,7 @@ export default class HeadersPolyfill {
   /**
    * Appends a new value onto an existing header inside a `Headers` object, or adds the header if it does not already exist.
    */
-  append(name: string, value: string) {
+  append(name: string, value: string): void {
     const normalizedName = normalizeHeaderName(name)
     let resolvedValue = this.has(normalizedName)
       ? `${this.get(normalizedName)}, ${value}`
@@ -88,15 +88,14 @@ export default class HeadersPolyfill {
   /**
    * Deletes a header from the `Headers` object.
    */
-  delete(name: string) {
+  delete(name: string): void {
     if (!this.has(name)) {
-      return this
+      return
     }
 
     const normalizedName = normalizeHeaderName(name)
     delete this._headers[normalizedName]
     this._names.delete(normalizedName)
-    return this
   }
 
   /**
