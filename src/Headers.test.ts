@@ -37,12 +37,14 @@ describe('constructor()', () => {
     expect(headers.get('accept')).toEqual('*/*')
   })
 
-  it('supports multiple same header names with different casing', () => {
+  it('duplicates values for the same header names with different casing', () => {
     const headers = new Headers({
       'accept-encoding': 'gzip, deflate, br',
       'Accept-Encoding': 'gzip, deflate, br',
     })
-    expect(headers.get('accept-encoding')).toEqual('gzip, deflate, br')
+    expect(headers.get('accept-encoding')).toEqual(
+      'gzip, deflate, br, gzip, deflate, br'
+    )
   })
 })
 
@@ -255,11 +257,11 @@ describe('.append()', () => {
     expect(headers.get('accept')).toEqual('*/*, image/png')
   })
 
-  it('does not duplicate values with the existing header', () => {
+  it('duplicates values with the existing header', () => {
     const headers = new Headers({ accept: '*/*' })
 
     headers.append('Accept', '*/*')
-    expect(headers.get('accept')).toEqual('*/*')
+    expect(headers.get('accept')).toEqual('*/*, */*')
   })
 })
 

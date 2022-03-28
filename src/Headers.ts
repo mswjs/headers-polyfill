@@ -78,15 +78,9 @@ export default class HeadersPolyfill {
    */
   append(name: string, value: string) {
     const normalizedName = normalizeHeaderName(name)
-    let resolvedValue = value
-
-    if (this.has(normalizedName)) {
-      const existingValue = this.get(normalizedName)
-
-      if (existingValue !== value) {
-        resolvedValue = `${existingValue}, ${value}`
-      }
-    }
+    let resolvedValue = this.has(normalizedName)
+      ? `${this.get(normalizedName)}, ${value}`
+      : value
 
     this.set(name, resolvedValue)
   }
