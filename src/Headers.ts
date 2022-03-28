@@ -109,10 +109,13 @@ export default class HeadersPolyfill {
    * Returns the object of all the raw headers.
    */
   raw(): Record<string, string> {
-    return Object.entries(this._headers).reduce((headers, [name, value]) => {
-      headers[this._names.get(name)] = value
-      return headers
-    }, {})
+    const rawHeaders: Record<string, string> = {}
+
+    for (const [name, value] of this.entries()) {
+      rawHeaders[this._names.get(name)] = value
+    }
+
+    return rawHeaders
   }
 
   /**
