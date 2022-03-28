@@ -77,7 +77,17 @@ export default class HeadersPolyfill {
    * Appends a new value onto an existing header inside a `Headers` object, or adds the header if it does not already exist.
    */
   append(name: string, value: string) {
-    const resolvedValue = this.has(name) ? `${this.get(name)}, ${value}` : value
+    const normalizedName = normalizeHeaderName(name)
+    let resolvedValue = value
+
+    if (this.has(normalizedName)) {
+      const existingValue = this.get(normalizedName)
+
+      if (existingValue !== value) {
+        resolvedValue = `${existingValue}, ${value}`
+      }
+    }
+
     this.set(name, resolvedValue)
   }
 
