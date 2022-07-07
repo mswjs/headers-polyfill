@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { headersToList } from './headersToList'
 
 describe('given Headers with a single header', () => {

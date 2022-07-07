@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { headersToString } from './headersToString'
 import HeadersPolyfill from '../Headers'
 
