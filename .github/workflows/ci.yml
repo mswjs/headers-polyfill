@@ -7,15 +7,31 @@ on:
   pull_request:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GH_ADMIN_TOKEN }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          always-auth: true
+          cache: yarn
+
+      - name: Setup Git
+        run: |
+          git config --local user.name "kettanaito"
+          git config --local user.email "kettanaito@gmail.com"
 
       - name: Install dependencies
-        uses: bahmutov/npm-install@v1
+        run: yarn install --frozen-lockfile
 
       - name: Unit tests
         run: yarn test
@@ -25,7 +41,7 @@ jobs:
 
       - name: Release
         if: contains(github.ref, 'refs/heads/main')
-        uses: cycjimmy/semantic-release-action@v2
+        run: yarn release
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
