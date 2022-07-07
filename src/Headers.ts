@@ -2,13 +2,16 @@ import { HeadersList, HeadersObject } from './glossary'
 import { normalizeHeaderName } from './utils/normalizeHeaderName'
 import { normalizeHeaderValue } from './utils/normalizeHeaderValue'
 
+const NORMALIZED_HEADERS: unique symbol = Symbol('normalizedHeaders')
+const RAW_HEADER_NAMES: unique symbol = Symbol('rawHeaderNames')
+
 export default class HeadersPolyfill {
   // Normalized header {"name":"a, b"} storage.
-  private headers: Record<string, string> = {}
+  private [NORMALIZED_HEADERS]: Record<string, string> = {}
 
   // Keeps the mapping between the raw header name
   // and the normalized header name to ease the lookup.
-  private names: Map<string, string> = new Map()
+  private [RAW_HEADER_NAMES]: Map<string, string> = new Map()
 
   constructor(init?: HeadersInit | HeadersObject | HeadersList) {
     /**
@@ -40,19 +43,19 @@ export default class HeadersPolyfill {
   }
 
   *keys(): IterableIterator<string> {
-    for (const name of Object.keys(this.headers)) {
+    for (const name of Object.keys(this[NORMALIZED_HEADERS])) {
       yield name
     }
   }
 
   *values(): IterableIterator<string> {
-    for (const value of Object.values(this.headers)) {
+    for (const value of Object.values(this[NORMALIZED_HEADERS])) {
       yield value
     }
   }
 
   *entries(): IterableIterator<[string, string]> {
-    for (const name of Object.keys(this.headers)) {
+    for (const name of Object.keys(this[NORMALIZED_HEADERS])) {
       yield [name, this.get(name)]
     }
   }
@@ -61,7 +64,7 @@ export default class HeadersPolyfill {
    * Returns a `ByteString` sequence of all the values of a header with a given name.
    */
   get(name: string): string | null {
-    return this.headers[normalizeHeaderName(name)] || null
+    return this[NORMALIZED_HEADERS][normalizeHeaderName(name)] || null
   }
 
   /**
@@ -69,8 +72,8 @@ export default class HeadersPolyfill {
    */
   set(name: string, value: string): void {
     const normalizedName = normalizeHeaderName(name)
-    this.headers[normalizedName] = normalizeHeaderValue(value)
-    this.names.set(normalizedName, name)
+    this[NORMALIZED_HEADERS][normalizedName] = normalizeHeaderValue(value)
+    this[RAW_HEADER_NAMES].set(normalizedName, name)
   }
 
   /**
@@ -94,15 +97,15 @@ export default class HeadersPolyfill {
     }
 
     const normalizedName = normalizeHeaderName(name)
-    delete this.headers[normalizedName]
-    this.names.delete(normalizedName)
+    delete this[NORMALIZED_HEADERS][normalizedName]
+    this[RAW_HEADER_NAMES].delete(normalizedName)
   }
 
   /**
    * Returns the object of all the normalized headers.
    */
   all(): Record<string, string> {
-    return this.headers
+    return this[NORMALIZED_HEADERS]
   }
 
   /**
@@ -112,7 +115,7 @@ export default class HeadersPolyfill {
     const rawHeaders: Record<string, string> = {}
 
     for (const [name, value] of this.entries()) {
-      rawHeaders[this.names.get(name)] = value
+      rawHeaders[this[RAW_HEADER_NAMES].get(name)] = value
     }
 
     return rawHeaders
@@ -122,7 +125,7 @@ export default class HeadersPolyfill {
    * Returns a boolean stating whether a `Headers` object contains a certain header.
    */
   has(name: string): boolean {
-    return this.headers.hasOwnProperty(normalizeHeaderName(name))
+    return this[NORMALIZED_HEADERS].hasOwnProperty(normalizeHeaderName(name))
   }
 
   /**
@@ -138,9 +141,9 @@ export default class HeadersPolyfill {
     ) => void,
     thisArg?: ThisArg
   ) {
-    for (const name in this.headers) {
-      if (this.headers.hasOwnProperty(name)) {
-        callback.call(thisArg, this.headers[name], name, this)
+    for (const name in this[NORMALIZED_HEADERS]) {
+      if (this[NORMALIZED_HEADERS].hasOwnProperty(name)) {
+        callback.call(thisArg, this[NORMALIZED_HEADERS][name], name, this)
       }
     }
   }
