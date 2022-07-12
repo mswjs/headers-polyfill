@@ -1,7 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
-    "target": "esnext",
+    "target": "ES5",
     "module": "CommonJS",
     "outDir": "lib",
     "declaration": true,
