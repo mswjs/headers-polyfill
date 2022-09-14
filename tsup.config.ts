@@ -12,6 +12,5 @@ export default defineConfig([
     bundle: true,
     splitting: false,
     dts: true,
-    shims: true,
   }
 ])
