@@ -1,6 +1,6 @@
 {
   "name": "headers-polyfill",
-  "version": "3.0.10",
+  "version": "3.1.0",
   "description": "A native \"Headers\" class polyfill.",
   "main": "./lib/index.js",
   "module": "./lib/esm/index.js",
