@@ -2,14 +2,23 @@
   "name": "headers-polyfill",
   "version": "3.0.10",
   "description": "A native \"Headers\" class polyfill.",
-  "main": "lib/index.js",
-  "types": "lib",
+  "main": "./lib/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "require": "./lib/index.js",
+      "default": "./lib/esm/index.js"
+    }
+  },
   "repository": "https://github.com/mswjs/headers-polyfill",
   "author": "Artem Zakharchenko",
   "license": "MIT",
   "scripts": {
+    "start": "tsup --watch",
     "clean": "rimraf lib",
-    "build": "yarn clean && tsc --build",
+    "build": "yarn clean && tsup",
     "test": "jest",
     "release": "release publish",
     "prepublishOnly": "yarn test && yarn build"
@@ -25,6 +34,7 @@
     "jest-environment-jsdom": "^28.1.2",
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.5",
+    "tsup": "^6.2.3",
     "typescript": "4.3.2"
   }
 }
