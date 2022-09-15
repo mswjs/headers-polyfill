@@ -10,6 +10,11 @@
       "types": "./lib/index.d.ts",
       "require": "./lib/index.js",
       "default": "./lib/esm/index.js"
+    },
+    "./lib": {
+      "types": "./lib/index.d.ts",
+      "require": "./lib/index.js",
+      "default": "./lib/esm/index.js"
     }
   },
   "repository": "https://github.com/mswjs/headers-polyfill",
