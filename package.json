@@ -3,13 +3,13 @@
   "version": "3.1.0",
   "description": "A native \"Headers\" class polyfill.",
   "main": "./lib/index.js",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/index.mjs",
   "types": "./lib/index.d.ts",
   "exports": {
     ".": {
       "types": "./lib/index.d.ts",
       "require": "./lib/index.js",
-      "default": "./lib/esm/index.js"
+      "default": "./lib/index.mjs"
     }
   },
   "repository": "https://github.com/mswjs/headers-polyfill",
