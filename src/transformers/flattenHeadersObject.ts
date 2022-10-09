@@ -7,7 +7,7 @@ export function flattenHeadersObject(
   return reduceHeadersObject<FlatHeadersObject>(
     headersObject,
     (headers, name, value) => {
-      headers[name] = ([] as string[]).concat(value).join('; ')
+      headers[name] = ([] as string[]).concat(value).join(', ')
       return headers
     },
     {}

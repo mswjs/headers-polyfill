@@ -9,7 +9,7 @@ describe('given a headers object', () => {
     }
 
     expect(flattenHeadersObject(headersObject)).toEqual({
-      Accept: 'application/json; text/xml',
+      Accept: 'application/json, text/xml',
       'Content-Type': 'application/pdf',
     })
   })

@@ -208,7 +208,7 @@ appendHeader(
 import { flattenHeadersList } from 'headers-polyfill'
 
 flattenHeadersList([['content-type', ['text/plain', 'image/png']]])
-// ['content-type', 'text/plain; image/png']
+// ['content-type', 'text/plain, image/png']
 ```
 
 - `flattenHeadersObject: (o: Record<string, string | string[]>): Record<string, string>`
@@ -219,5 +219,5 @@ import { flattenHeadersObject } from 'headers-polyfill'
 flattenHeadersObject({
   'content-type': ['text/plain', 'image/png'],
 })
-// { 'content-type': 'text/plain; image/png' }
+// { 'content-type': 'text/plain, image/png' }
 ```

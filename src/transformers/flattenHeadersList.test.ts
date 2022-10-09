@@ -9,7 +9,7 @@ describe('given a headers list', () => {
     ]
 
     expect(flattenHeadersList(headersList)).toEqual([
-      ['accept', 'application/json; text/xml'],
+      ['accept', 'application/json, text/xml'],
       ['content-type', 'application/pdf'],
     ])
   })
