@@ -158,7 +158,7 @@ export default class HeadersPolyfill {
 
   getSetCookie(): string[] {
     const setCookieHeader =
-      this[NORMALIZED_HEADERS][SET_COOKIE_HEADER_KEY_NORMALIZED]
-    return setCookieHeader ? setCookieHeader.split(HEADER_JOIN_DELIMITER) : []
+      this[NORMALIZED_HEADERS][SET_COOKIE_HEADER_KEY_NORMALIZED] ?? ''
+    return setCookieHeader.split(HEADER_JOIN_DELIMITER)
   }
 }
