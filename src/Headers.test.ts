@@ -59,7 +59,7 @@ describe('[Symbol.iterator]', () => {
       'content-type': 'application/json',
     })
 
-    const entries = []
+    const entries: Array<[string, string]> = []
 
     for (const entry of headers) {
       entries.push(entry)
@@ -74,7 +74,7 @@ describe('[Symbol.iterator]', () => {
 
   it('returns an empty iterator when there is no headers', () => {
     const headers = new Headers()
-    const entries = []
+    const entries: Array<[string, string]> = []
 
     for (const entry of headers) {
       entries.push(entry)
@@ -91,7 +91,7 @@ describe('.keys()', () => {
       'accept-language': 'en-US',
       'content-type': 'application/json',
     })
-    const keys = []
+    const keys: Array<string> = []
 
     for (const name of headers.keys()) {
       keys.push(name)
@@ -102,7 +102,7 @@ describe('.keys()', () => {
 
   it('returns an empty iterator when there is no headers', () => {
     const headers = new Headers()
-    const keys = []
+    const keys: Array<string> = []
 
     for (const name of headers.keys()) {
       keys.push(name)
@@ -119,7 +119,7 @@ describe('.values()', () => {
       'accept-language': 'en-US',
       'content-type': 'application/json',
     })
-    const values = []
+    const values: Array<string> = []
 
     for (const value of headers.values()) {
       values.push(value)
@@ -130,7 +130,7 @@ describe('.values()', () => {
 
   it('returns an empty iterator when there is no headers', () => {
     const headers = new Headers()
-    const values = []
+    const values: Array<string> = []
 
     for (const value of headers.values()) {
       values.push(value)
@@ -147,7 +147,7 @@ describe('.entries()', () => {
       'accept-language': 'en-US',
       'content-type': 'application/json',
     })
-    const entries = []
+    const entries: Array<[string, string]> = []
 
     for (const entry of headers.entries()) {
       entries.push(entry)
@@ -162,7 +162,7 @@ describe('.entries()', () => {
 
   it('returns an empty iterator when there is no headers', () => {
     const headers = new Headers()
-    const entries = []
+    const entries: Array<[string, string]> = []
 
     for (const entry of headers.entries()) {
       entries.push(entry)
@@ -328,5 +328,21 @@ describe('.forEach()', () => {
     }, headerSet)
 
     expect(headerSet).toEqual(new Set(['accept', 'user-agent']))
+  })
+})
+
+describe('.getSetCookie()', () => {
+  it('returns the value of the existing Set-Cookie header', () => {
+    const headers = new Headers({ 'Set-Cookie': 'a' })
+    expect(headers.getSetCookie()).toEqual(['a'])
+    headers.append('Set-Cookie', 'b')
+    expect(headers.getSetCookie()).toEqual(['a', 'b'])
+    headers.append('Set-Cookie', 'c')
+    expect(headers.getSetCookie()).toEqual(['a', 'b', 'c'])
+  })
+
+  it('returns [] given a non-existing Set-Cookie header', () => {
+    const headers = new Headers()
+    expect(headers.getSetCookie()).toEqual([])
   })
 })
