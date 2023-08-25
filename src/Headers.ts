@@ -156,6 +156,11 @@ export default class HeadersPolyfill {
     }
   }
 
+  /**
+   * Returns an array containing the values
+   * of all Set-Cookie headers associated
+   * with a response
+   */
   getSetCookie(): string[] {
     const setCookieHeader =
       this[NORMALIZED_HEADERS][SET_COOKIE_HEADER_KEY_NORMALIZED] ?? ''
