@@ -4,6 +4,7 @@ import { normalizeHeaderValue } from './utils/normalizeHeaderValue'
 
 const NORMALIZED_HEADERS: unique symbol = Symbol('normalizedHeaders')
 const RAW_HEADER_NAMES: unique symbol = Symbol('rawHeaderNames')
+const HEADER_VALUE_DELIMITER = ', ' as const
 
 export default class HeadersPolyfill {
   // Normalized header {"name":"a, b"} storage.
@@ -28,12 +29,18 @@ export default class HeadersPolyfill {
       }, this)
     } else if (Array.isArray(init)) {
       init.forEach(([name, value]) => {
-        this.append(name, Array.isArray(value) ? value.join(', ') : value)
+        this.append(
+          name,
+          Array.isArray(value) ? value.join(HEADER_VALUE_DELIMITER) : value
+        )
       })
     } else if (init) {
       Object.getOwnPropertyNames(init).forEach((name) => {
         const value = init[name]
-        this.append(name, Array.isArray(value) ? value.join(', ') : value)
+        this.append(
+          name,
+          Array.isArray(value) ? value.join(HEADER_VALUE_DELIMITER) : value
+        )
       })
     }
   }
@@ -64,7 +71,7 @@ export default class HeadersPolyfill {
    * Returns a `ByteString` sequence of all the values of a header with a given name.
    */
   get(name: string): string | null {
-    return this[NORMALIZED_HEADERS][normalizeHeaderName(name)] || null
+    return this[NORMALIZED_HEADERS][normalizeHeaderName(name)] ?? null
   }
 
   /**
@@ -146,5 +153,16 @@ export default class HeadersPolyfill {
         callback.call(thisArg, this[NORMALIZED_HEADERS][name], name, this)
       }
     }
+  }
+
+  /**
+   * Returns an array containing the values
+   * of all Set-Cookie headers associated
+   * with a response
+   */
+  getSetCookie(): string[] {
+    const setCookieHeader = this.get('set-cookie')
+    if (setCookieHeader === null) return []
+    return setCookieHeader.split(HEADER_VALUE_DELIMITER)
   }
 }
