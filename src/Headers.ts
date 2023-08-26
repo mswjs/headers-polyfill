@@ -4,8 +4,7 @@ import { normalizeHeaderValue } from './utils/normalizeHeaderValue'
 
 const NORMALIZED_HEADERS: unique symbol = Symbol('normalizedHeaders')
 const RAW_HEADER_NAMES: unique symbol = Symbol('rawHeaderNames')
-const HEADER_JOIN_DELIMITER = ', ' as const
-const SET_COOKIE_HEADER_KEY_NORMALIZED = 'set-cookie' as const
+const HEADER_VALUE_DELIMITER = ', ' as const
 
 export default class HeadersPolyfill {
   // Normalized header {"name":"a, b"} storage.
@@ -32,7 +31,7 @@ export default class HeadersPolyfill {
       init.forEach(([name, value]) => {
         this.append(
           name,
-          Array.isArray(value) ? value.join(HEADER_JOIN_DELIMITER) : value
+          Array.isArray(value) ? value.join(HEADER_VALUE_DELIMITER) : value
         )
       })
     } else if (init) {
@@ -40,7 +39,7 @@ export default class HeadersPolyfill {
         const value = init[name]
         this.append(
           name,
-          Array.isArray(value) ? value.join(HEADER_JOIN_DELIMITER) : value
+          Array.isArray(value) ? value.join(HEADER_VALUE_DELIMITER) : value
         )
       })
     }
@@ -72,7 +71,7 @@ export default class HeadersPolyfill {
    * Returns a `ByteString` sequence of all the values of a header with a given name.
    */
   get(name: string): string | null {
-    return this[NORMALIZED_HEADERS][normalizeHeaderName(name)] || null
+    return this[NORMALIZED_HEADERS][normalizeHeaderName(name)] ?? null
   }
 
   /**
@@ -162,8 +161,8 @@ export default class HeadersPolyfill {
    * with a response
    */
   getSetCookie(): string[] {
-    const setCookieHeader =
-      this[NORMALIZED_HEADERS][SET_COOKIE_HEADER_KEY_NORMALIZED] ?? ''
-    return setCookieHeader.split(HEADER_JOIN_DELIMITER)
+    const setCookieHeader = this.get('set-cookie')
+    if (setCookieHeader === null) return []
+    return setCookieHeader.split(HEADER_VALUE_DELIMITER)
   }
 }

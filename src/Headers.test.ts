@@ -186,6 +186,11 @@ describe('.get()', () => {
     expect(headers.get('Accept')).toBeNull()
     expect(headers.get('AcCePt')).toBeNull()
   })
+
+  it('return an empty string for an empty header value', () => {
+    const headers = new Headers({ 'Content-Type': '' })
+    expect(headers.get('Content-Type')).toEqual('')
+  })
 })
 
 describe('.all()', () => {
@@ -333,12 +338,14 @@ describe('.forEach()', () => {
 
 describe('.getSetCookie()', () => {
   it('returns the value of the existing Set-Cookie header', () => {
-    const headers = new Headers({ 'Set-Cookie': 'a' })
-    expect(headers.getSetCookie()).toEqual(['a'])
+    const headers = new Headers({ 'Set-Cookie': '' })
+    expect(headers.getSetCookie()).toEqual([''])
+    headers.append('Set-Cookie', 'a')
+    expect(headers.getSetCookie()).toEqual(['', 'a'])
     headers.append('Set-Cookie', 'b')
-    expect(headers.getSetCookie()).toEqual(['a', 'b'])
+    expect(headers.getSetCookie()).toEqual(['', 'a', 'b'])
     headers.append('Set-Cookie', 'c')
-    expect(headers.getSetCookie()).toEqual(['a', 'b', 'c'])
+    expect(headers.getSetCookie()).toEqual(['', 'a', 'b', 'c'])
   })
 
   it('returns [] given a non-existing Set-Cookie header', () => {
