@@ -337,19 +337,39 @@ describe('.forEach()', () => {
 })
 
 describe('.getSetCookie()', () => {
-  it('returns the value of the existing Set-Cookie header', () => {
-    const headers = new Headers({ 'Set-Cookie': '' })
-    expect(headers.getSetCookie()).toEqual([''])
-    headers.append('Set-Cookie', 'a')
-    expect(headers.getSetCookie()).toEqual(['', 'a'])
-    headers.append('Set-Cookie', 'b')
-    expect(headers.getSetCookie()).toEqual(['', 'a', 'b'])
-    headers.append('Set-Cookie', 'c')
-    expect(headers.getSetCookie()).toEqual(['', 'a', 'b', 'c'])
-  })
-
-  it('returns [] given a non-existing Set-Cookie header', () => {
+  it('returns an empty array given no Set-Cookie headers', () => {
     const headers = new Headers()
     expect(headers.getSetCookie()).toEqual([])
+  })
+
+  it('returns empty string if Set-Cookie header was set to empty string', () => {
+    const headers = new Headers({ 'Set-Cookie': '' })
+    expect(headers.getSetCookie()).toEqual([''])
+  })
+
+  it('returns a list of a single existig Set-Cookie header', () => {
+    const headers = new Headers({
+      'Set-Cookie': 'name=cookie; Expires=Wed, 21 Oct 2015 07:28:00 GMT',
+    })
+    expect(headers.getSetCookie()).toEqual([
+      'name=cookie; Expires=Wed, 21 Oct 2015 07:28:00 GMT',
+    ])
+  })
+
+  it('returns a list of all existing Set-Cookie headers', () => {
+    const headers = new Headers()
+    headers.append(
+      'Set-Cookie',
+      'name=cookie; Expires=Wed, 21 Oct 2015 07:28:00 GMT'
+    )
+    headers.append(
+      'Set-Cookie',
+      'name=session; Expires=Wed, 21 Oct 2015 07:28:00 GMT'
+    )
+
+    expect(headers.getSetCookie()).toEqual([
+      'name=cookie; Expires=Wed, 21 Oct 2015 07:28:00 GMT',
+      'name=session; Expires=Wed, 21 Oct 2015 07:28:00 GMT',
+    ])
   })
 })
