@@ -1,3 +1,4 @@
+import { splitCookiesString } from 'set-cookie-parser'
 import { HeadersList, HeadersObject } from './glossary'
 import { normalizeHeaderName } from './utils/normalizeHeaderName'
 import { normalizeHeaderValue } from './utils/normalizeHeaderValue'
@@ -162,7 +163,15 @@ export default class HeadersPolyfill {
    */
   getSetCookie(): string[] {
     const setCookieHeader = this.get('set-cookie')
-    if (setCookieHeader === null) return []
-    return setCookieHeader.split(HEADER_VALUE_DELIMITER)
+
+    if (setCookieHeader === null) {
+      return []
+    }
+
+    if (setCookieHeader === '') {
+      return ['']
+    }
+
+    return splitCookiesString(setCookieHeader)
   }
 }
