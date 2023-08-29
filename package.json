@@ -1,6 +1,6 @@
 {
   "name": "headers-polyfill",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "A native \"Headers\" class polyfill.",
   "main": "./lib/index.js",
   "module": "./lib/index.mjs",
