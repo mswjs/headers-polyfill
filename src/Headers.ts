@@ -1,4 +1,4 @@
-import { splitCookiesString } from 'set-cookie-parser'
+import setCookieParser from 'set-cookie-parser'
 import { HeadersList, HeadersObject } from './glossary'
 import { normalizeHeaderName } from './utils/normalizeHeaderName'
 import { normalizeHeaderValue } from './utils/normalizeHeaderValue'
@@ -172,6 +172,6 @@ export default class HeadersPolyfill {
       return ['']
     }
 
-    return splitCookiesString(setCookieHeader)
+    return setCookieParser.splitCookiesString(setCookieHeader)
   }
 }
