@@ -28,7 +28,7 @@
     "README.md"
   ],
   "devDependencies": {
-    "@ossjs/release": "^0.3.0",
+    "@ossjs/release": "^0.7.2",
     "@types/jest": "^28.1.4",
     "jest": "^28.1.2",
     "jest-environment-jsdom": "^28.1.2",
