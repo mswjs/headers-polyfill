@@ -40,7 +40,8 @@ The `Headers` polyfill instance supports the same methods as the standard `Heade
 - [`.set()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/set)
 - [`.append()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/append)
 - [`.delete()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/delete)
-- `.forEach()`
+- [`.forEach()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/forEach)
+- [`.getSetCookie()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/getSetCookie)
 
 As well as the iterator methods:
 
