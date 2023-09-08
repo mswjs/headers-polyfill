@@ -39,11 +39,11 @@ date: Fri, 08 Dec 2017 21:04:30 GMT\r
 
       expect(headersToString(headers)).toEqual(
         `
-date: Fri, 08 Dec 2017 21:04:30 GMT\r
-content-encoding: gzip\r
-content-type: text/html; charset=utf-8\r
 connection: keep-alive\r
+content-encoding: gzip\r
 content-length: 6502\r
+content-type: text/html; charset=utf-8\r
+date: Fri, 08 Dec 2017 21:04:30 GMT\r
       `.trim()
       )
     })

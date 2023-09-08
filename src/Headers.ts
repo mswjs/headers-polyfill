@@ -159,10 +159,8 @@ export default class HeadersPolyfill {
     ) => void,
     thisArg?: ThisArg
   ) {
-    for (const name in this[NORMALIZED_HEADERS]) {
-      if (this[NORMALIZED_HEADERS].hasOwnProperty(name)) {
-        callback.call(thisArg, this[NORMALIZED_HEADERS][name], name, this)
-      }
+    for (const [name, value] of this.entries()) {
+      callback.call(thisArg, value, name, this)
     }
   }
 
