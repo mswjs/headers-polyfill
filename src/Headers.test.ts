@@ -110,6 +110,21 @@ describe('.keys()', () => {
 
     expect(keys).toEqual([])
   })
+
+  it('sorts alphabetically', () => {
+    const headers = new Headers()
+    headers.set('X-B', '1')
+    headers.set('X-A', '2')
+    headers.set('X-C', '3')
+    expect(Array.from(headers.keys())).toEqual(['x-a', 'x-b', 'x-c'])
+  })
+
+  it('does not combine set-cookie headers', () => {
+    const headers = new Headers()
+    headers.append('Set-Cookie', 'a=1')
+    headers.append('Set-Cookie', 'b=2')
+    expect(Array.from(headers.keys())).toEqual(['set-cookie', 'set-cookie'])
+  })
 })
 
 describe('.values()', () => {
@@ -137,6 +152,21 @@ describe('.values()', () => {
     }
 
     expect(values).toEqual([])
+  })
+
+  it('sorts alphabetically', () => {
+    const headers = new Headers()
+    headers.set('X-B', '1')
+    headers.set('X-A', '2')
+    headers.set('X-C', '3')
+    expect(Array.from(headers.values())).toEqual(['2', '1', '3'])
+  })
+
+  it('does not combine set-cookie headers', () => {
+    const headers = new Headers()
+    headers.append('Set-Cookie', 'a=1')
+    headers.append('Set-Cookie', 'b=2')
+    expect(Array.from(headers.values())).toEqual(['a=1', 'b=2'])
   })
 })
 
@@ -169,6 +199,28 @@ describe('.entries()', () => {
     }
 
     expect(entries).toEqual([])
+  })
+
+  it('sorts alphabetically', () => {
+    const headers = new Headers()
+    headers.set('X-B', '1')
+    headers.set('X-A', '2')
+    headers.set('X-C', '3')
+    expect(Array.from(headers.entries())).toEqual([
+      ['x-a', '2'],
+      ['x-b', '1'],
+      ['x-c', '3'],
+    ])
+  })
+
+  it('does not combine set-cookie headers', () => {
+    const headers = new Headers()
+    headers.append('Set-Cookie', 'a=1')
+    headers.append('Set-Cookie', 'b=2')
+    expect(Array.from(headers.entries())).toEqual([
+      ['set-cookie', 'a=1'],
+      ['set-cookie', 'b=2'],
+    ])
   })
 })
 

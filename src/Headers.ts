@@ -51,20 +51,30 @@ export default class HeadersPolyfill {
   }
 
   *keys(): IterableIterator<string> {
-    for (const name of Object.keys(this[NORMALIZED_HEADERS])) {
+    for (const [name] of this.entries()) {
       yield name
     }
   }
 
   *values(): IterableIterator<string> {
-    for (const value of Object.values(this[NORMALIZED_HEADERS])) {
+    for (const [, value] of this.entries()) {
       yield value
     }
   }
 
   *entries(): IterableIterator<[string, string]> {
-    for (const name of Object.keys(this[NORMALIZED_HEADERS])) {
-      yield [name, this.get(name)]
+    // https://fetch.spec.whatwg.org/#concept-header-list-sort-and-combine
+    let sortedKeys = Object.keys(this[NORMALIZED_HEADERS]).sort((a, b) =>
+      a.localeCompare(b)
+    )
+    for (const name of sortedKeys) {
+      if (name === 'set-cookie') {
+        for (const value of this.getSetCookie()) {
+          yield [name, value]
+        }
+      } else {
+        yield [name, this.get(name)]
+      }
     }
   }
 
