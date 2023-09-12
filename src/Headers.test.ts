@@ -111,7 +111,7 @@ describe('.keys()', () => {
     expect(keys).toEqual([])
   })
 
-  it('sorts alphabetically', () => {
+  it('sorts returned keys alphabetically', () => {
     const headers = new Headers()
     headers.set('X-B', '1')
     headers.set('X-A', '2')
@@ -154,7 +154,7 @@ describe('.values()', () => {
     expect(values).toEqual([])
   })
 
-  it('sorts alphabetically', () => {
+  it('sorts returned values alphabetically', () => {
     const headers = new Headers()
     headers.set('X-B', '1')
     headers.set('X-A', '2')
