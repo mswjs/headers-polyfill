@@ -2,7 +2,7 @@
  * @jest-environment node
  */
 import { headersToObject } from './headersToObject'
-import Headers from '../Headers'
+import { Headers } from '../Headers'
 
 describe('given Headers with a single header', () => {
   it('should return that single header in an Object', () => {

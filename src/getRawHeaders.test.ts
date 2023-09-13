@@ -1,4 +1,4 @@
-import Headers from './Headers'
+import { Headers } from './Headers'
 import { getRawHeaders } from './getRawHeaders'
 
 it('returns a headers objects with the raw names', () => {

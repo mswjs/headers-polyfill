@@ -1,4 +1,4 @@
-import Headers from '../Headers'
+import { Headers } from '../Headers'
 
 /**
  * Converts a string representation of headers (i.e. from XMLHttpRequest)

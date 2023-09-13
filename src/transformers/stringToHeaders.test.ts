@@ -1,4 +1,4 @@
-import Headers from '../Headers'
+import { Headers } from '../Headers'
 import { stringToHeaders } from './stringToHeaders'
 
 it('returns a Headers instance given a headers string', () => {

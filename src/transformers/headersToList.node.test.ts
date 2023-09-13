@@ -1,7 +1,7 @@
 /**
  * @jest-environment node
  */
-import Headers from '../Headers'
+import { Headers } from '../Headers'
 import { headersToList } from './headersToList'
 
 describe('given Headers with a single header', () => {

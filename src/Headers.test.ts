@@ -1,7 +1,7 @@
 /**
  * @jest-environment jsdom
  */
-import Headers from './Headers'
+import { Headers } from './Headers'
 
 describe('constructor()', () => {
   it('can be created without any arguments', () => {

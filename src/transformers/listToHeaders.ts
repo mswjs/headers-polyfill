@@ -1,4 +1,4 @@
-import Headers from '../Headers'
+import { Headers } from '../Headers'
 import { HeadersList } from '../glossary'
 
 export function listToHeaders(list: HeadersList): Headers {

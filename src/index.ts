@@ -1,4 +1,4 @@
-export { default as Headers } from './Headers'
+export { Headers } from './Headers'
 
 export { getRawHeaders } from './getRawHeaders'
 export { headersToString } from './transformers/headersToString'

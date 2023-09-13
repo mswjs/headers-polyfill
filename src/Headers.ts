@@ -11,7 +11,7 @@ export const RAW_HEADER_NAMES: unique symbol = Symbol('rawHeaderNames')
 
 const HEADER_VALUE_DELIMITER = ', ' as const
 
-export default class HeadersPolyfill {
+export class Headers {
   // Normalized header {"name":"a, b"} storage.
   private [NORMALIZED_HEADERS]: Record<string, string> = {}
 
@@ -26,7 +26,7 @@ export default class HeadersPolyfill {
      */
     if (
       ['Headers', 'HeadersPolyfill'].includes(init?.constructor.name) ||
-      init instanceof HeadersPolyfill
+      init instanceof Headers
     ) {
       const initialHeaders = init as Headers
       initialHeaders.forEach((value, name) => {

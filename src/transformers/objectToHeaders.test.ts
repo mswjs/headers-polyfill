@@ -1,5 +1,5 @@
 import { objectToHeaders } from './objectToHeaders'
-import Headers from '../Headers'
+import { Headers } from '../Headers'
 import { HeadersObject } from '../glossary'
 
 describe('given an object representation of headers', () => {
