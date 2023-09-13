@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 import { headersToString } from './headersToString'
-import HeadersPolyfill from '../Headers'
+import Headers from '../Headers'
 
 describe('headersToString', () => {
   describe('given a standard Headers instance', () => {
@@ -29,7 +29,7 @@ date: Fri, 08 Dec 2017 21:04:30 GMT\r
 
   describe('given a polyfill Headers instance', () => {
     it('returns its string representation', () => {
-      const headers = new HeadersPolyfill({
+      const headers = new Headers({
         date: 'Fri, 08 Dec 2017 21:04:30 GMT',
         'content-encoding': 'gzip',
         'content-type': 'text/html; charset=utf-8',

@@ -6,18 +6,18 @@ import Headers from './Headers'
 describe('constructor()', () => {
   it('can be created without any arguments', () => {
     const headers = new Headers()
-    expect(headers.all()).toEqual({})
+    expect(Object.fromEntries(headers.entries())).toEqual({})
   })
 
   it('can be created given a Headers instance', () => {
     const headers = new Headers(new window.Headers({ Accept: '*/*' }))
-    expect(headers.all()).toEqual({ accept: '*/*' })
+    expect(Object.fromEntries(headers.entries())).toEqual({ accept: '*/*' })
   })
 
   it('can be created given a polyfilled Headers instance', () => {
     const firstHeaders = new Headers({ Accept: '*/*' })
     const headers = new Headers(firstHeaders)
-    expect(headers.all()).toEqual({ accept: '*/*' })
+    expect(Object.fromEntries(headers.entries())).toEqual({ accept: '*/*' })
   })
 
   it('can be created given a ["name", "a"] list', () => {
@@ -276,42 +276,6 @@ describe('.get()', () => {
   it('return an empty string for an empty header value', () => {
     const headers = new Headers({ 'Content-Type': '' })
     expect(headers.get('Content-Type')).toEqual('')
-  })
-})
-
-describe('.all()', () => {
-  it('returns a headers object with normalized names', () => {
-    const headers = new Headers({
-      Accept: '*/*',
-      'Content-Type': ['application/json', 'text/plain'],
-    })
-    expect(headers.all()).toEqual({
-      accept: '*/*',
-      'content-type': 'application/json, text/plain',
-    })
-  })
-
-  it('returns an empty object when there is no headers', () => {
-    expect(new Headers().all()).toEqual({})
-    expect(new Headers({}).all()).toEqual({})
-  })
-})
-
-describe('.raw()', () => {
-  it('returns a headers objects with the raw names', () => {
-    const headers = new Headers({
-      Accept: '*/*',
-      'ConTent-Type': ['application/json', 'text/plain'],
-    })
-    expect(headers.raw()).toEqual({
-      Accept: '*/*',
-      'ConTent-Type': 'application/json, text/plain',
-    })
-  })
-
-  it('returns an empty object when there is no headers', () => {
-    expect(new Headers().raw()).toEqual({})
-    expect(new Headers({}).raw()).toEqual({})
   })
 })
 

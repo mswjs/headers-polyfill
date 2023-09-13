@@ -1,10 +1,10 @@
-import HeadersPolyfill from '../Headers'
+import Headers from '../Headers'
 
 /**
  * Converts a string representation of headers (i.e. from XMLHttpRequest)
  * to a new `Headers` instance.
  */
-export function stringToHeaders(str: string): HeadersPolyfill {
+export function stringToHeaders(str: string): Headers {
   const lines = str.trim().split(/[\r\n]+/)
 
   return lines.reduce((headers, line) => {
@@ -18,5 +18,5 @@ export function stringToHeaders(str: string): HeadersPolyfill {
     headers.append(name, value)
 
     return headers
-  }, new HeadersPolyfill())
+  }, new Headers())
 }

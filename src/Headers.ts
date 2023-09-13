@@ -5,8 +5,10 @@ import { normalizeHeaderValue } from './utils/normalizeHeaderValue'
 import { isValidHeaderName } from './utils/isValidHeaderName'
 import { isValidHeaderValue } from './utils/isValidHeaderValue'
 
-const NORMALIZED_HEADERS: unique symbol = Symbol('normalizedHeaders')
-const RAW_HEADER_NAMES: unique symbol = Symbol('rawHeaderNames')
+export const NORMALIZED_HEADERS: unique symbol = Symbol('normalizedHeaders')
+
+export const RAW_HEADER_NAMES: unique symbol = Symbol('rawHeaderNames')
+
 const HEADER_VALUE_DELIMITER = ', ' as const
 
 export default class HeadersPolyfill {
@@ -151,26 +153,6 @@ export default class HeadersPolyfill {
     const normalizedName = normalizeHeaderName(name)
     delete this[NORMALIZED_HEADERS][normalizedName]
     this[RAW_HEADER_NAMES].delete(normalizedName)
-  }
-
-  /**
-   * Returns the object of all the normalized headers.
-   */
-  all(): Record<string, string> {
-    return this[NORMALIZED_HEADERS]
-  }
-
-  /**
-   * Returns the object of all the raw headers.
-   */
-  raw(): Record<string, string> {
-    const rawHeaders: Record<string, string> = {}
-
-    for (const [name, value] of this.entries()) {
-      rawHeaders[this[RAW_HEADER_NAMES].get(name)] = value
-    }
-
-    return rawHeaders
   }
 
   /**
