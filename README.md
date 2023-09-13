@@ -12,8 +12,6 @@ Various request issuing libraries utilize a different format of headers. This li
 
 ```bash
 npm install headers-polyfill
-# or
-yarn add headers-polyfill
 ```
 
 ## Polyfill
@@ -49,27 +47,11 @@ As well as the iterator methods:
 - [`.values()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/values)
 - [`.entries()`](https://developer.mozilla.org/en-US/docs/Web/API/Headers/entries)
 
-### Custom methods
+## Transformations
 
-In addition, the polyfill instance has the following methods:
+### `getRawHeaders()`
 
-- `.all()`
-
-Returns the object of the _normalized_ header name/value pairs.
-
-```js
-const headers = new Headers({
-  Accept: '*/*',
-  'Content-Type': 'application/json',
-})
-
-headers.all()
-// { "accept": "*/*", "content-type": "application/json" }
-```
-
-- `.raw()`
-
-Similar to the `.all()` method, `.raw()` returns an object consisting of the header name/value pairs, but preserving raw header names.
+Returns an object consisting of the header name/value pairs but preserving raw header names.
 
 ```js
 const headers = new Headers({
@@ -80,8 +62,6 @@ const headers = new Headers({
 headers.raw()
 // { "Accept": "*/*", "Content-Type": "application/json" }
 ```
-
-## Transformations
 
 ### Headers ⭢ N
 
