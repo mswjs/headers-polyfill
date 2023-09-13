@@ -2,6 +2,8 @@ import { splitCookiesString } from 'set-cookie-parser'
 import { HeadersList, HeadersObject } from './glossary'
 import { normalizeHeaderName } from './utils/normalizeHeaderName'
 import { normalizeHeaderValue } from './utils/normalizeHeaderValue'
+import { isValidHeaderName } from './utils/isValidHeaderName'
+import { isValidHeaderValue } from './utils/isValidHeaderValue'
 
 const NORMALIZED_HEADERS: unique symbol = Symbol('normalizedHeaders')
 const RAW_HEADER_NAMES: unique symbol = Symbol('rawHeaderNames')
@@ -79,9 +81,24 @@ export default class HeadersPolyfill {
   }
 
   /**
+   * Returns a boolean stating whether a `Headers` object contains a certain header.
+   */
+  has(name: string): boolean {
+    if (!isValidHeaderName(name)) {
+      throw new TypeError(`Invalid header name "${name}"`)
+    }
+
+    return this[NORMALIZED_HEADERS].hasOwnProperty(normalizeHeaderName(name))
+  }
+
+  /**
    * Returns a `ByteString` sequence of all the values of a header with a given name.
    */
   get(name: string): string | null {
+    if (!isValidHeaderName(name)) {
+      throw TypeError(`Invalid header name "${name}"`)
+    }
+
     return this[NORMALIZED_HEADERS][normalizeHeaderName(name)] ?? null
   }
 
@@ -89,8 +106,15 @@ export default class HeadersPolyfill {
    * Sets a new value for an existing header inside a `Headers` object, or adds the header if it does not already exist.
    */
   set(name: string, value: string): void {
+    if (!isValidHeaderName(name) || !isValidHeaderValue(value)) {
+      return
+    }
+
     const normalizedName = normalizeHeaderName(name)
-    this[NORMALIZED_HEADERS][normalizedName] = normalizeHeaderValue(value)
+    const normalizedValue = normalizeHeaderValue(value)
+
+    this[NORMALIZED_HEADERS][normalizedName] =
+      normalizeHeaderValue(normalizedValue)
     this[RAW_HEADER_NAMES].set(normalizedName, name)
   }
 
@@ -98,10 +122,16 @@ export default class HeadersPolyfill {
    * Appends a new value onto an existing header inside a `Headers` object, or adds the header if it does not already exist.
    */
   append(name: string, value: string): void {
+    if (!isValidHeaderName(name) || !isValidHeaderValue(value)) {
+      return
+    }
+
     const normalizedName = normalizeHeaderName(name)
+    const normalizedValue = normalizeHeaderValue(value)
+
     let resolvedValue = this.has(normalizedName)
-      ? `${this.get(normalizedName)}, ${value}`
-      : value
+      ? `${this.get(normalizedName)}, ${normalizedValue}`
+      : normalizedValue
 
     this.set(name, resolvedValue)
   }
@@ -110,6 +140,10 @@ export default class HeadersPolyfill {
    * Deletes a header from the `Headers` object.
    */
   delete(name: string): void {
+    if (!isValidHeaderName(name)) {
+      return
+    }
+
     if (!this.has(name)) {
       return
     }
@@ -137,13 +171,6 @@ export default class HeadersPolyfill {
     }
 
     return rawHeaders
-  }
-
-  /**
-   * Returns a boolean stating whether a `Headers` object contains a certain header.
-   */
-  has(name: string): boolean {
-    return this[NORMALIZED_HEADERS].hasOwnProperty(normalizeHeaderName(name))
   }
 
   /**

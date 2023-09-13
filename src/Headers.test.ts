@@ -224,7 +224,41 @@ describe('.entries()', () => {
   })
 })
 
+describe('.has()', () => {
+  it('throws a TypeEror given an invalid header name', () => {
+    const headers = new Headers()
+    expect(() =>
+      headers.has(
+        // @ts-expect-error
+        123
+      )
+    ).toThrow(new TypeError('Invalid header name "123"'))
+  })
+
+  it('returns true given an existing header name', () => {
+    const headers = new Headers({ accept: '*/*' })
+    expect(headers.has('accept')).toBe(true)
+    expect(headers.has('AcCePt')).toBe(true)
+  })
+
+  it('returns false given a non-existing header name', () => {
+    const headers = new Headers({ accept: '*/*' })
+    expect(headers.has('content-type')).toBe(false)
+    expect(headers.has('CoNtEnT-TyPe')).toBe(false)
+  })
+})
+
 describe('.get()', () => {
+  it('throws a TypeEror given an invalid header name', () => {
+    const headers = new Headers()
+    expect(() =>
+      headers.get(
+        // @ts-expect-error
+        123
+      )
+    ).toThrow(new TypeError('Invalid header name "123"'))
+  })
+
   it('returns the value of the existing header name', () => {
     const headers = new Headers({ 'Content-Type': 'text/plain' })
     expect(headers.get('Content-Type')).toEqual('text/plain')
@@ -282,6 +316,31 @@ describe('.raw()', () => {
 })
 
 describe('.set()', () => {
+  it('returns if given an invalid header name', () => {
+    const headers = new Headers()
+    expect(
+      headers.set(
+        // @ts-expect-error
+        123,
+        'value'
+      )
+    ).toBeUndefined()
+    expect(Object.fromEntries(headers.entries())).toEqual({})
+  })
+
+  it('returns if given an invalid header value', () => {
+    const headers = new Headers()
+    expect(
+      headers.set(
+        'foo',
+        // @ts-expect-error
+        123
+      )
+    ).toBeUndefined()
+    expect(headers.set('foo', '  value  ')).toBeUndefined()
+    expect(Object.fromEntries(headers.entries())).toEqual({})
+  })
+
   it('sets a new header', () => {
     const headers = new Headers({ accept: '*/*' })
 
@@ -325,21 +384,20 @@ describe('.append()', () => {
   })
 })
 
-describe('.has()', () => {
-  it('returns true given an existing header name', () => {
-    const headers = new Headers({ accept: '*/*' })
-    expect(headers.has('accept')).toBe(true)
-    expect(headers.has('AcCePt')).toBe(true)
-  })
-
-  it('returns false given a non-existing header name', () => {
-    const headers = new Headers({ accept: '*/*' })
-    expect(headers.has('content-type')).toBe(false)
-    expect(headers.has('CoNtEnT-TyPe')).toBe(false)
-  })
-})
-
 describe('.delete()', () => {
+  it('returns if given an invalid header name', () => {
+    const headers = new Headers({ accept: '*/*' })
+    expect(
+      headers.delete(
+        // @ts-expect-error
+        123
+      )
+    ).toBeUndefined()
+    expect(Object.fromEntries(headers.entries())).toEqual({
+      accept: '*/*',
+    })
+  })
+
   it('deletes the existing header', () => {
     const headers = new Headers({ accept: '*/*' })
 
