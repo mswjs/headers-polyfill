@@ -1,5 +1,5 @@
 import { objectToHeaders } from './objectToHeaders'
-import HeadersPolyfill from '../Headers'
+import { Headers } from '../Headers'
 import { HeadersObject } from '../glossary'
 
 describe('given an object representation of headers', () => {
@@ -12,7 +12,7 @@ describe('given an object representation of headers', () => {
     }
     const headers = objectToHeaders(headersObject)
 
-    expect(headers).toBeInstanceOf(HeadersPolyfill)
+    expect(headers).toBeInstanceOf(Headers)
     expect(headers.get('accept')).toEqual('application/json, text/plain')
     expect(headers.get('content-length')).toEqual('1234')
     expect(headers.get('content-type')).toEqual('text/xml')

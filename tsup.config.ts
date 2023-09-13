@@ -5,12 +5,13 @@ export default defineConfig([
     name: 'main',
     entry: ['./src/index.ts'],
     outDir: './lib',
-    format: ['esm','cjs'],
+    format: ['esm', 'cjs'],
     sourcemap: true,
     clean: true,
     bundle: true,
     splitting: false,
     dts: true,
     target: 'es5',
-  }
+    tsconfig: './tsconfig.build.json',
+  },
 ])

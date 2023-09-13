@@ -1,15 +1,13 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "noEmit": true,
     "target": "ES5",
     "module": "CommonJS",
-    "outDir": "lib",
-    "declaration": true,
-    "declarationDir": "lib",
     "moduleResolution": "node",
     "downlevelIteration": true,
     "typeRoots": ["node_modules/@types"]
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules", "src/**/*.test.ts"]
+  "exclude": ["node_modules"]
 }

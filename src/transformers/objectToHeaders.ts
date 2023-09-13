@@ -1,4 +1,4 @@
-import HeadersPolyfill from '../Headers'
+import { Headers } from '../Headers'
 import { reduceHeadersObject } from './reduceHeadersObject'
 
 /**
@@ -6,7 +6,7 @@ import { reduceHeadersObject } from './reduceHeadersObject'
  */
 export function objectToHeaders(
   headersObject: Record<string, string | string[] | undefined>
-): HeadersPolyfill {
+): Headers {
   return reduceHeadersObject(
     headersObject,
     (headers, name, value) => {
@@ -18,6 +18,6 @@ export function objectToHeaders(
 
       return headers
     },
-    new HeadersPolyfill()
+    new Headers()
   )
 }

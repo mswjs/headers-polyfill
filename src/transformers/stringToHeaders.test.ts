@@ -1,4 +1,4 @@
-import HeadersPolyfill from '../Headers'
+import { Headers } from '../Headers'
 import { stringToHeaders } from './stringToHeaders'
 
 it('returns a Headers instance given a headers string', () => {
@@ -16,7 +16,7 @@ x-xss-protection: 1; mode=block\r\n
       `
   const headers = stringToHeaders(headersString)
 
-  expect(headers).toBeInstanceOf(HeadersPolyfill)
+  expect(headers).toBeInstanceOf(Headers)
   expect(headers.get('date')).toEqual('Fri, 08 Dec 2017 21:04:30 GMT')
   expect(headers.get('content-encoding')).toEqual('gzip')
   expect(headers.get('x-content-type-options')).toEqual('nosniff')
@@ -31,6 +31,6 @@ x-xss-protection: 1; mode=block\r\n
 
 it('returns a Headers instance given an empty string', () => {
   const headers = stringToHeaders('')
-  expect(headers).toBeInstanceOf(HeadersPolyfill)
-  expect(headers.all()).toEqual({})
+  expect(headers).toBeInstanceOf(Headers)
+  expect(Object.fromEntries(headers)).toEqual({})
 })
