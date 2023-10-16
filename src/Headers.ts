@@ -25,7 +25,7 @@ export class Headers {
      * because that class is only defined in the browser.
      */
     if (
-      ['Headers', 'HeadersPolyfill'].includes(init?.constructor.name) ||
+      ['Headers', 'HeadersPolyfill', '_Headers'].includes(init?.constructor.name) ||
       init instanceof Headers
     ) {
       const initialHeaders = init as Headers
