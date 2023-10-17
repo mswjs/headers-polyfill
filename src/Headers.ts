@@ -21,12 +21,13 @@ export class Headers {
 
   constructor(init?: HeadersInit | HeadersObject | HeadersList) {
     /**
-     * @note Cannot check if the `init` is an instance of the `Headers`
-     * because that class is only defined in the browser.
+     * @note Cannot necessarily check if the `init` is an instance of the
+     * `Headers` because that class may not be defined in Node or jsdom.
      */
     if (
-      ['Headers', 'HeadersPolyfill', '_Headers'].includes(init?.constructor.name) ||
-      init instanceof Headers
+      ['Headers', 'HeadersPolyfill'].includes(init?.constructor.name) ||
+      init instanceof Headers ||
+      (typeof globalThis.Headers !== 'undefined' && init instanceof globalThis.Headers)
     ) {
       const initialHeaders = init as Headers
       initialHeaders.forEach((value, name) => {
