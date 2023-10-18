@@ -5,17 +5,14 @@ on:
     branches:
       - main
   pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16, 18]
-
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -35,37 +32,3 @@ jobs:
 
       - name: Unit tests
         run: yarn test
-
-  release:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-          token: ${{ secrets.GH_ADMIN_TOKEN }}
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          always-auth: true
-          cache: yarn
-
-      - name: Setup Git
-        run: |
-          git config --local user.name "kettanaito"
-          git config --local user.email "kettanaito@gmail.com"
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Build
-        run: yarn build
-
-      - name: Release
-        if: contains(github.ref, 'refs/heads/main')
-        run: yarn release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
