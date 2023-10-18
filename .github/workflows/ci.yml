@@ -5,12 +5,14 @@ on:
     branches:
       - main
   pull_request:
-    branches:
-      - main
+  workflow_dispatch:
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16, 18]
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -21,27 +23,12 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: ${{ matrix.node-version }}
           always-auth: true
           cache: yarn
-
-      - name: Setup Git
-        run: |
-          git config --local user.name "kettanaito"
-          git config --local user.email "kettanaito@gmail.com"
 
       - name: Install dependencies
         run: yarn install --frozen-lockfile
 
       - name: Unit tests
         run: yarn test
-
-      - name: Build
-        run: yarn build
-
-      - name: Release
-        if: contains(github.ref, 'refs/heads/main')
-        run: yarn release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
