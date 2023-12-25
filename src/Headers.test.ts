@@ -225,7 +225,7 @@ describe('.entries()', () => {
 })
 
 describe('.has()', () => {
-  it('throws a TypeEror given an invalid header name', () => {
+  it('throws a TypeError given an invalid header name', () => {
     const headers = new Headers()
     expect(() =>
       headers.has(
@@ -249,7 +249,7 @@ describe('.has()', () => {
 })
 
 describe('.get()', () => {
-  it('throws a TypeEror given an invalid header name', () => {
+  it('throws a TypeError given an invalid header name', () => {
     const headers = new Headers()
     expect(() =>
       headers.get(
@@ -421,7 +421,7 @@ describe('.getSetCookie()', () => {
     expect(headers.getSetCookie()).toEqual([''])
   })
 
-  it('returns a list of a single existig Set-Cookie header', () => {
+  it('returns a list of a single existing Set-Cookie header', () => {
     const headers = new Headers({
       'Set-Cookie': 'name=cookie; Expires=Wed, 21 Oct 2015 07:28:00 GMT',
     })
