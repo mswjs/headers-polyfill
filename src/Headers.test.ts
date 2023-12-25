@@ -392,7 +392,7 @@ describe('.forEach()', () => {
       headerSet.add(name)
     })
 
-    // `Headers.forEach` returns normalized lowecase names.
+    // `Headers.forEach` returns normalized lowercase names.
     expect(headerSet).toEqual(new Set(['accept', 'user-agent']))
   })
 
