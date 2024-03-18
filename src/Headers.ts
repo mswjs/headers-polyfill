@@ -27,7 +27,8 @@ export class Headers {
     if (
       ['Headers', 'HeadersPolyfill'].includes(init?.constructor.name) ||
       init instanceof Headers ||
-      (typeof globalThis.Headers !== 'undefined' && init instanceof globalThis.Headers)
+      (typeof globalThis.Headers !== 'undefined' &&
+        init instanceof globalThis.Headers)
     ) {
       const initialHeaders = init as Headers
       initialHeaders.forEach((value, name) => {
@@ -51,11 +52,11 @@ export class Headers {
     }
   }
 
+  [Symbol.toStringTag] = 'Headers';
+
   [Symbol.iterator]() {
     return this.entries()
   }
-
-  [Symbol.toStringTag] = 'Headers';
 
   *keys(): IterableIterator<string> {
     for (const [name] of this.entries()) {

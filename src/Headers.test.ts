@@ -85,8 +85,8 @@ describe('[Symbol.iterator]', () => {
 })
 
 describe('[Symbol.toStringTag]', () => {
-  it('should support proper toString output', () => {
-    expect(new Headers().toString()).toEqual("[object Headers]");
+  it('returns "[object Headers]" when called', () => {
+    expect(new Headers().toString()).toEqual('[object Headers]')
   })
 })
 
