@@ -84,6 +84,12 @@ describe('[Symbol.iterator]', () => {
   })
 })
 
+describe('[Symbol.toStringTag]', () => {
+  it('should support proper toString output', () => {
+    expect(new Headers().toString()).toEqual("[object Headers]");
+  })
+})
+
 describe('.keys()', () => {
   it('returns the iterator with the header keys', () => {
     const headers = new Headers({

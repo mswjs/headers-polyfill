@@ -55,6 +55,8 @@ export class Headers {
     return this.entries()
   }
 
+  [Symbol.toStringTag] = 'Headers';
+
   *keys(): IterableIterator<string> {
     for (const [name] of this.entries()) {
       yield name
