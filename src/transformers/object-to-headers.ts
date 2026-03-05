@@ -1,5 +1,5 @@
-import { Headers } from '../Headers'
-import { reduceHeadersObject } from './reduceHeadersObject'
+import { Headers } from '../headers'
+import { reduceHeadersObject } from './reduce-headers-object'
 
 /**
  * Converts a given headers object to a new `Headers` instance.

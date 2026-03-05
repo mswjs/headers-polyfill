@@ -1,5 +1,5 @@
-import { Headers } from './Headers'
-import { getRawHeaders } from './getRawHeaders'
+import { Headers } from './headers'
+import { getRawHeaders } from './get-raw-headers'
 
 it('returns a headers objects with the raw names', () => {
   const headers = new Headers({

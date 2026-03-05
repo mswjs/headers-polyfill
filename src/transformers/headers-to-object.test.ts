@@ -1,7 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-import { headersToObject } from './headersToObject'
+import { headersToObject } from './headers-to-object'
 
 describe('given Headers with a single header', () => {
   it('should return that single header in an Object', () => {

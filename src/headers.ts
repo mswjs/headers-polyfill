@@ -1,9 +1,9 @@
 import { splitCookiesString } from 'set-cookie-parser'
 import { HeadersList, HeadersObject } from './glossary'
-import { normalizeHeaderName } from './utils/normalizeHeaderName'
-import { normalizeHeaderValue } from './utils/normalizeHeaderValue'
-import { isValidHeaderName } from './utils/isValidHeaderName'
-import { isValidHeaderValue } from './utils/isValidHeaderValue'
+import { normalizeHeaderName } from './utils/normalize-header-name'
+import { normalizeHeaderValue } from './utils/normalize-header-value'
+import { isValidHeaderName } from './utils/is-valid-header-name'
+import { isValidHeaderValue } from './utils/is-valid-header-value'
 
 export const NORMALIZED_HEADERS: unique symbol = Symbol('normalizedHeaders')
 

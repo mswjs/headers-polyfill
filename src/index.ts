@@ -1,16 +1,16 @@
-export { Headers } from './Headers'
+export { Headers } from './headers'
 
-export { getRawHeaders } from './getRawHeaders'
-export { headersToString } from './transformers/headersToString'
-export { headersToList } from './transformers/headersToList'
-export { headersToObject } from './transformers/headersToObject'
-export { stringToHeaders } from './transformers/stringToHeaders'
-export { listToHeaders } from './transformers/listToHeaders'
-export { objectToHeaders } from './transformers/objectToHeaders'
+export { getRawHeaders } from './get-raw-headers'
+export { headersToString } from './transformers/headers-to-string'
+export { headersToList } from './transformers/headers-to-list'
+export { headersToObject } from './transformers/headers-to-object'
+export { stringToHeaders } from './transformers/string-to-headers'
+export { listToHeaders } from './transformers/list-to-headers'
+export { objectToHeaders } from './transformers/object-to-headers'
 
-export { reduceHeadersObject } from './transformers/reduceHeadersObject'
-export { flattenHeadersList } from './transformers/flattenHeadersList'
-export { flattenHeadersObject } from './transformers/flattenHeadersObject'
+export { reduceHeadersObject } from './transformers/reduce-headers-object'
+export { flattenHeadersList } from './transformers/flatten-headers-list'
+export { flattenHeadersObject } from './transformers/flatten-headers-object'
 
 /* Typings */
 export type {

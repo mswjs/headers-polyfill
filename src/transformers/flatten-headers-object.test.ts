@@ -1,4 +1,4 @@
-import { flattenHeadersObject } from './flattenHeadersObject'
+import { flattenHeadersObject } from './flatten-headers-object'
 import { HeadersObject } from '../glossary'
 
 describe('given a headers object', () => {

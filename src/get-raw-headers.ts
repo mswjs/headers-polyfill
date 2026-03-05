@@ -1,4 +1,4 @@
-import { RAW_HEADER_NAMES } from './Headers'
+import { RAW_HEADER_NAMES } from './headers'
 
 /**
  * Returns the object of all raw headers.

@@ -1,4 +1,4 @@
-import { headersToList } from './headersToList'
+import { headersToList } from './headers-to-list'
 
 /**
  * Converts a given `Headers` instance to its string representation.

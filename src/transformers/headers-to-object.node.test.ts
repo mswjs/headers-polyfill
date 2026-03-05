@@ -1,8 +1,6 @@
-/**
- * @jest-environment node
- */
-import { headersToObject } from './headersToObject'
-import { Headers } from '../Headers'
+// @vitest-environment node
+import { headersToObject } from './headers-to-object'
+import { Headers } from '../headers'
 
 describe('given Headers with a single header', () => {
   it('should return that single header in an Object', () => {
