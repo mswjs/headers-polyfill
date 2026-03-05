@@ -28,7 +28,7 @@
     "README.md"
   ],
   "devDependencies": {
-    "@ossjs/release": "^0.7.3",
+    "@ossjs/release": "^0.10.1",
     "@swc/core": "^1.15.18",
     "@swc/jest": "^0.2.39",
     "@types/jest": "^30.0.0",

@@ -9,6 +9,9 @@ on:
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -19,8 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-          always-auth: true
+          node-version: 24
           cache: yarn
 
       - name: Setup Git
@@ -42,4 +44,3 @@ jobs:
         run: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
