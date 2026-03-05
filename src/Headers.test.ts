@@ -40,6 +40,13 @@ describe('constructor()', () => {
     expect(headers.get('accept')).toEqual('*/*')
   })
 
+  it('can be created given an object with a null prototype', () => {
+    const headersInit = Object.create(null)
+    headersInit.accept = '*/*'
+    const headers = new Headers(headersInit)
+    expect(headers.get('accept')).toEqual('*/*')
+  })
+
   it('duplicates values for the same header names with different casing', () => {
     const headers = new Headers({
       'accept-encoding': 'gzip, deflate, br',

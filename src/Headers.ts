@@ -25,7 +25,7 @@ export class Headers {
      * `Headers` because that class may not be defined in Node or jsdom.
      */
     if (
-      ['Headers', 'HeadersPolyfill'].includes(init?.constructor.name) ||
+      ['Headers', 'HeadersPolyfill'].includes(init?.constructor?.name) ||
       init instanceof Headers ||
       (typeof globalThis.Headers !== 'undefined' &&
         init instanceof globalThis.Headers)
