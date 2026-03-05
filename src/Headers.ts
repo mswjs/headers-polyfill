@@ -58,19 +58,19 @@ export class Headers {
     return this.entries()
   }
 
-  *keys(): IterableIterator<string> {
+  *keys(): Generator<string> {
     for (const [name] of this.entries()) {
       yield name
     }
   }
 
-  *values(): IterableIterator<string> {
+  *values(): Generator<string> {
     for (const [, value] of this.entries()) {
       yield value
     }
   }
 
-  *entries(): IterableIterator<[string, string]> {
+  *entries(): Generator<[string, string]> {
     // https://fetch.spec.whatwg.org/#concept-header-list-sort-and-combine
     let sortedKeys = Object.keys(this[NORMALIZED_HEADERS]).sort((a, b) =>
       a.localeCompare(b)

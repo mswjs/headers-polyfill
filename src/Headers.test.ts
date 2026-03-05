@@ -138,6 +138,13 @@ describe('.keys()', () => {
     headers.append('Set-Cookie', 'b=2')
     expect(Array.from(headers.keys())).toEqual(['set-cookie', 'set-cookie'])
   })
+
+  if (process.version.startsWith('22.')) {
+    it('returns an iterator with [Symbol.dispose] defined', () => {
+      const headers = new Headers()
+      expect(headers.keys()[Symbol.dispose]).toBeInstanceOf(Function)
+    })
+  }
 })
 
 describe('.values()', () => {
@@ -181,6 +188,13 @@ describe('.values()', () => {
     headers.append('Set-Cookie', 'b=2')
     expect(Array.from(headers.values())).toEqual(['a=1', 'b=2'])
   })
+
+  if (process.version.startsWith('22.')) {
+    it('returns an iterator with [Symbol.dispose] defined', () => {
+      const headers = new Headers()
+      expect(headers.values()[Symbol.dispose]).toBeInstanceOf(Function)
+    })
+  }
 })
 
 describe('.entries()', () => {
@@ -235,6 +249,13 @@ describe('.entries()', () => {
       ['set-cookie', 'b=2'],
     ])
   })
+
+  if (process.version.startsWith('22.')) {
+    it('returns an iterator with [Symbol.dispose] defined', () => {
+      const headers = new Headers()
+      expect(headers.entries()[Symbol.dispose]).toBeInstanceOf(Function)
+    })
+  }
 })
 
 describe('.has()', () => {
