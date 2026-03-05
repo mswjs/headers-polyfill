@@ -20,15 +20,20 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_ADMIN_TOKEN }}
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           always-auth: true
-          cache: yarn
+          cache: pnpm
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install
 
       - name: Unit tests
-        run: yarn test
+        run: pnpm test

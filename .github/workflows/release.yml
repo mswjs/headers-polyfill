@@ -19,11 +19,16 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GH_ADMIN_TOKEN }}
 
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: yarn
+          cache: pnpm
 
       - name: Setup Git
         run: |
@@ -31,16 +36,16 @@ jobs:
           git config --local user.email "kettanaito@gmail.com"
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: pnpm install
 
       - name: Build
-        run: yarn build
+        run: pnpm build
 
       - name: Tests
-        run: yarn test
+        run: pnpm test
 
       - name: Release
         if: contains(github.ref, 'refs/heads/main')
-        run: yarn release
+        run: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ADMIN_TOKEN }}
