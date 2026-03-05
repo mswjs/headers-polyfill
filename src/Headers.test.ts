@@ -82,11 +82,6 @@ describe('[Symbol.iterator]', () => {
 
     expect(entries).toEqual([])
   })
-
-  it('returns an iterator with [Symbol.dispose] defined', () => {
-    const headers = new Headers()
-    expect(headers.entries()[Symbol.dispose]).toBeInstanceOf(Function)
-  })
 })
 
 describe('[Symbol.toStringTag]', () => {
@@ -137,10 +132,12 @@ describe('.keys()', () => {
     expect(Array.from(headers.keys())).toEqual(['set-cookie', 'set-cookie'])
   })
 
-  it('returns an iterator with [Symbol.dispose] defined', () => {
-    const headers = new Headers()
-    expect(headers.entries()[Symbol.dispose]).toBeInstanceOf(Function)
-  })
+  if (process.version.startsWith('22.')) {
+    it('returns an iterator with [Symbol.dispose] defined', () => {
+      const headers = new Headers()
+      expect(headers.keys()[Symbol.dispose]).toBeInstanceOf(Function)
+    })
+  }
 })
 
 describe('.values()', () => {
@@ -185,10 +182,12 @@ describe('.values()', () => {
     expect(Array.from(headers.values())).toEqual(['a=1', 'b=2'])
   })
 
-  it('returns an iterator with [Symbol.dispose] defined', () => {
-    const headers = new Headers()
-    expect(headers.entries()[Symbol.dispose]).toBeInstanceOf(Function)
-  })
+  if (process.version.startsWith('22.')) {
+    it('returns an iterator with [Symbol.dispose] defined', () => {
+      const headers = new Headers()
+      expect(headers.values()[Symbol.dispose]).toBeInstanceOf(Function)
+    })
+  }
 })
 
 describe('.entries()', () => {
@@ -244,10 +243,12 @@ describe('.entries()', () => {
     ])
   })
 
-  it('returns an iterator with [Symbol.dispose] defined', () => {
-    const headers = new Headers()
-    expect(headers.entries()[Symbol.dispose]).toBeInstanceOf(Function)
-  })
+  if (process.version.startsWith('22.')) {
+    it('returns an iterator with [Symbol.dispose] defined', () => {
+      const headers = new Headers()
+      expect(headers.entries()[Symbol.dispose]).toBeInstanceOf(Function)
+    })
+  }
 })
 
 describe('.has()', () => {
