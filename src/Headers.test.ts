@@ -85,7 +85,7 @@ describe('[Symbol.iterator]', () => {
 
   it('returns an iterator with [Symbol.dispose] defined', () => {
     const headers = new Headers()
-    expect(typeof headers.entries()[Symbol.dispose]).toBe('function')
+    expect(headers.entries()[Symbol.dispose]).toBeInstanceOf(Function)
   })
 })
 
@@ -139,7 +139,7 @@ describe('.keys()', () => {
 
   it('returns an iterator with [Symbol.dispose] defined', () => {
     const headers = new Headers()
-    expect(typeof headers.keys()[Symbol.dispose]).toBe('function')
+    expect(headers.entries()[Symbol.dispose]).toBeInstanceOf(Function)
   })
 })
 
@@ -187,7 +187,7 @@ describe('.values()', () => {
 
   it('returns an iterator with [Symbol.dispose] defined', () => {
     const headers = new Headers()
-    expect(typeof headers.values()[Symbol.dispose]).toBe('function')
+    expect(headers.entries()[Symbol.dispose]).toBeInstanceOf(Function)
   })
 })
 
@@ -246,7 +246,7 @@ describe('.entries()', () => {
 
   it('returns an iterator with [Symbol.dispose] defined', () => {
     const headers = new Headers()
-    expect(typeof headers.entries()[Symbol.dispose]).toBe('function')
+    expect(headers.entries()[Symbol.dispose]).toBeInstanceOf(Function)
   })
 })
 
