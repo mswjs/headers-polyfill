@@ -40,10 +40,10 @@ describe('constructor()', () => {
     expect(headers.get('accept')).toEqual('*/*')
   })
 
-  it('can be created given an object with an undefined constructor', () => {
-    const obj = Object.create(null)
-    obj.accept = '*/*'
-    const headers = new Headers(obj)
+  it('can be created given an object with a null prototype', () => {
+    const headersInit = Object.create(null)
+    headersInit.accept = '*/*'
+    const headers = new Headers(headersInit)
     expect(headers.get('accept')).toEqual('*/*')
   })
 
