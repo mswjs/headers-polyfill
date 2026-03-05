@@ -1,5 +1,3 @@
-[![Published version](https://img.shields.io/npm/v/headers-polyfill.svg)](https://www.npmjs.com/package/headers-polyfill)
-
 # `headers-polyfill`
 
 A `Headers` class polyfill and transformation library.
