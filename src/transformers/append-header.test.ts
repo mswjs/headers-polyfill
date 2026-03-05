@@ -1,4 +1,4 @@
-import { appendHeader } from './appendHeader'
+import { appendHeader } from './append-header'
 
 describe('appendHeader', () => {
   describe('given appending a non-existing header', () => {

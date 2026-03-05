@@ -1,8 +1,5 @@
-/**
- * @jest-environment jsdom
- */
-import { headersToString } from './headersToString'
-import { Headers } from '../Headers'
+import { headersToString } from './headers-to-string'
+import { Headers } from '../headers'
 
 describe('headersToString', () => {
   describe('given a standard Headers instance', () => {

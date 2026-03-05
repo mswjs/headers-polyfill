@@ -1,8 +1,6 @@
-/**
- * @jest-environment node
- */
-import { Headers } from '../Headers'
-import { headersToList } from './headersToList'
+// @vitest-environment node
+import { Headers } from '../headers'
+import { headersToList } from './headers-to-list'
 
 describe('given Headers with a single header', () => {
   it('should return its list representation', () => {

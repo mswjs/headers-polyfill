@@ -1,5 +1,5 @@
 import { HeadersList } from '../glossary'
-import { flattenHeadersList } from './flattenHeadersList'
+import { flattenHeadersList } from './flatten-headers-list'
 
 describe('given a headers list', () => {
   it('flattens its multi-value headers', () => {

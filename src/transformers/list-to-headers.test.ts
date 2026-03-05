@@ -1,5 +1,5 @@
-import { listToHeaders } from './listToHeaders'
-import { Headers } from '../Headers'
+import { listToHeaders } from './list-to-headers'
+import { Headers } from '../headers'
 import { HeadersList } from '../glossary'
 
 describe('given a list representation of headers', () => {

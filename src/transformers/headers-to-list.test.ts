@@ -1,7 +1,4 @@
-/**
- * @jest-environment jsdom
- */
-import { headersToList } from './headersToList'
+import { headersToList } from './headers-to-list'
 
 describe('given Headers with a single header', () => {
   it('should return its list representation', () => {

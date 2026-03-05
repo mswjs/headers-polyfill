@@ -1,4 +1,4 @@
-import { reduceHeadersObject } from './reduceHeadersObject'
+import { reduceHeadersObject } from './reduce-headers-object'
 import { HeadersObject } from '../glossary'
 
 test('reduces headers to lowercase headers', () => {

@@ -1,5 +1,5 @@
-import { Headers } from '../Headers'
-import { stringToHeaders } from './stringToHeaders'
+import { Headers } from '../headers'
+import { stringToHeaders } from './string-to-headers'
 
 it('returns a Headers instance given a headers string', () => {
   const headersString = `
