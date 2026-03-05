@@ -44,6 +44,9 @@ jobs:
       - name: Tests
         run: pnpm test
 
+      - name: Lint
+        run: pnpm lint
+
       - name: Release
         if: contains(github.ref, 'refs/heads/main')
         run: pnpm release
