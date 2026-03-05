@@ -13,7 +13,7 @@ export { flattenHeadersList } from './transformers/flattenHeadersList'
 export { flattenHeadersObject } from './transformers/flattenHeadersObject'
 
 /* Typings */
-export {
+export type {
   HeadersList,
   FlatHeadersList,
   HeadersObject,
