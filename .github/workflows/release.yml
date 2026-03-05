@@ -32,7 +32,7 @@ jobs:
 
       - name: Setup Git
         run: |
-          git config --local user.name "kettanaito"
+          git config --local user.name "Artem Zakharchenko"
           git config --local user.email "kettanaito@gmail.com"
 
       - name: Install dependencies
