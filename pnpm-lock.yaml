@@ -7,22 +7,23 @@ settings:
 importers:
 
   .:
+    dependencies:
+      '@types/set-cookie-parser':
+        specifier: ^2.4.10
+        version: 2.4.10
+      set-cookie-parser:
+        specifier: ^3.0.1
+        version: 3.0.1
     devDependencies:
       '@ossjs/release':
         specifier: ^0.10.1
         version: 0.10.1
-      '@types/set-cookie-parser':
-        specifier: ^2.4.3
-        version: 2.4.10
       jsdom:
         specifier: ^28.1.0
         version: 28.1.0
       publint:
         specifier: ^0.3.18
         version: 0.3.18
-      set-cookie-parser:
-        specifier: ^2.6.0
-        version: 2.7.2
       tsdown:
         specifier: ^0.21.0
         version: 0.21.0(publint@0.3.18)(synckit@0.11.12)(typescript@5.9.3)
@@ -1107,8 +1108,8 @@ packages:
     engines: {node: '>=10'}
     hasBin: true
 
-  set-cookie-parser@2.7.2:
-    resolution: {integrity: sha512-oeM1lpU/UvhTxw+g3cIfxXHyJRc/uidd3yK1P242gzHds0udQBYzs3y8j4gCCW+ZJ7ad0yctld8RYO+bdurlvw==}
+  set-cookie-parser@3.0.1:
+    resolution: {integrity: sha512-n7Z7dXZhJbwuAHhNzkTti6Aw9QDDjZtm3JTpTGATIdNzdQz5GuFs22w90BcvF4INfnrL5xrX3oGsuqO5Dx3A1Q==}
 
   siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
@@ -2382,7 +2383,7 @@ snapshots:
 
   semver@7.7.4: {}
 
-  set-cookie-parser@2.7.2: {}
+  set-cookie-parser@3.0.1: {}
 
   siginfo@2.0.0: {}
 
