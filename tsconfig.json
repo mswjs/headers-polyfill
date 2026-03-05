@@ -1,13 +1,12 @@
 {
-  "compileOnSave": true,
   "compilerOptions": {
     "noEmit": true,
     "target": "ES5",
     "module": "CommonJS",
     "moduleResolution": "node",
     "downlevelIteration": true,
-    "typeRoots": ["node_modules/@types"]
+    "types": ["vitest/globals"],
   },
   "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

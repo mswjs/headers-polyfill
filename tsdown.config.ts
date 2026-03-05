@@ -1,4 +1,4 @@
-import { defineConfig } from 'tsup'
+import { defineConfig } from 'tsdown'
 
 export default defineConfig([
   {
@@ -8,10 +8,9 @@ export default defineConfig([
     format: ['esm', 'cjs'],
     sourcemap: true,
     clean: true,
-    bundle: true,
-    splitting: false,
+    unbundle: false,
     dts: true,
-    target: 'es5',
+    target: 'es2022',
     tsconfig: './tsconfig.build.json',
   },
 ])
