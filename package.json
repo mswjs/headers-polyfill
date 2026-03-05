@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "headers-polyfill",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "A native \"Headers\" class polyfill.",
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
