@@ -8,13 +8,13 @@ importers:
 
   .:
     dependencies:
-      '@types/set-cookie-parser':
-        specifier: ^2.4.10
-        version: 2.4.10
       set-cookie-parser:
         specifier: ^3.0.1
         version: 3.0.1
     devDependencies:
+      '@types/set-cookie-parser':
+        specifier: ^2.4.10
+        version: 2.4.10
       '@ossjs/release':
         specifier: ^0.10.1
         version: 0.10.1

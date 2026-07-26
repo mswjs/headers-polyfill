@@ -36,6 +36,7 @@
     "README.md"
   ],
   "devDependencies": {
+    "@types/set-cookie-parser": "^2.4.10",
     "@ossjs/release": "^0.10.1",
     "jsdom": "^28.1.0",
     "publint": "^0.3.18",
@@ -44,7 +45,6 @@
     "vitest": "^4.0.18"
   },
   "dependencies": {
-    "@types/set-cookie-parser": "^2.4.10",
     "set-cookie-parser": "^3.0.1"
   }
 }
