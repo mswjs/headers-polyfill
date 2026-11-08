@@ -344,6 +344,14 @@ describe('.set()', () => {
     expect(headers.get('content-type')).toEqual('application/json')
   })
 
+  it('sets a header whose name contains any token character', () => {
+    const headers = new Headers()
+    const name = "x-!#$%&'*+-.^_`|~"
+
+    headers.set(name, 'value')
+    expect(headers.get(name)).toEqual('value')
+  })
+
   it('overrides an existing header with the same name', () => {
     const headers = new Headers({ accept: '*/*' })
 
